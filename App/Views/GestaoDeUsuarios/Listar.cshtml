@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Titulo = "Usuários";
+    ViewBag.Subtitulo = "Listagem dos usuários do Sistema";
+    ViewBag.ListarUsuarios = "active";
+}
+
+<div class="conatiner-fluid content-inner mt-n5 py-0" id="result">
+                    
+</div>
+
+<script>
+    var changeFilter = false;
+    var pagina = 1;
+
+    $(document).ready(() => {
+        listar();
+    })
+
+    function paginar(novaPagina){
+        pagina = novaPagina;
+        listar();
+    }
+
+    function listar(){
+        var filtro = $('#filtro').val();
+        
+        $.ajax({
+            url: 'ListarUsuarios',
+            method: 'POST',
+            data: {
+                pageIndex: pagina,
+                pageSize: 15,
+                filter: filtro
+            }
+        }).then(function(response){
+            $('#result').html(response);
+        })
+    }
+</script>

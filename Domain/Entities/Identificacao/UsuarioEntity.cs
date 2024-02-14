@@ -1,0 +1,18 @@
+﻿namespace Domain.Entities.Identificacao;
+public class UsuarioEntity
+{
+    public int Codigo { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string? Apelido { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string Senha { get; set; } = string.Empty;
+    public string? Foto { get; set; }
+    public bool Ativo { get; set; }
+    public int CodigoCargo { get; set; }
+    public int CodigoSetor { get; set; }
+    public int? CodigoSuperiorImediato { get; set; }
+    public UsuarioEntity? SuperiorImediato { get; set; }
+    public CargoEntity Cargo { get; set; } = new CargoEntity();
+    public List<PerfilEntity> Perfis { get; set; } = new List<PerfilEntity>();
+    public List<PermissaoEntity> Permissoes { get; set; } = new List<PermissaoEntity>();
+}
