@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using Domain.Entities.Identificacao
+@using System.Text.Json
+@{
+    var _usuario = JsonSerializer.Deserialize<UsuarioEntity>(User.Claims.FirstOrDefault(c => c.Type == "Usuario")!.Value);
+}
+
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -126,7 +133,7 @@
                             </a>
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle mr-1" alt="Chris Wood" /> <span class="text-dark">Chris Wood</span>
+                                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle mr-1" alt="Chris Wood" /> <span class="text-dark">@_usuario.Apelido</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Perfil</a>

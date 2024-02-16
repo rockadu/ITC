@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Service.Identificacao;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace App.Controllers;
 
@@ -33,11 +34,14 @@ public class LoginController : BaseController
     {
         var _usuario = await _usuarioService.Logar(login.Email, login.Senha);
 
-        if(_usuario != null)
+        var a = JsonSerializer.Serialize(_usuario);
+
+        if (_usuario != null)
         {
             List<Claim> claims = new List<Claim>() {
                 new Claim(ClaimTypes.NameIdentifier, _usuario.Email),
                 new Claim("Nome", $"{_usuario.Apelido}"),
+                new Claim("Usuario", JsonSerializer.Serialize( _usuario)),
             };
 
             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
