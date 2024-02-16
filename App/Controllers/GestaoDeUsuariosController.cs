@@ -25,19 +25,4 @@ public class GestaoDeUsuariosController : BaseController
         return View(await _usuarioService.Listar(request));
     }
 
-    [HttpGet("{codigo}")]
-    public async Task<IActionResult> Usuario(int codigo)
-    {
-        return View();
-    }
-
-    public async Task<IActionResult> Atualizar()
-    {
-        return View();
-    }
-
-    public async Task<IActionResult> Adicionar()
-    {
-        return View();
-    }
 }
