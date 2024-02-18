@@ -4,30 +4,34 @@
 }
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="header-title d-flex justify-content-between align-items-center">
-                    @if(Model.Total > 1)
-                    {
-                        <h4 class="card-title">@Model.Total Usuários Cadastrados</h4>
-                    }
-                    else if (Model.Total == 1)
-                    {
-                        <h4 class="card-title">@Model.Total Usuário Cadastrado</h4>
-                    }
-                    else
-                    {
-                        <h4 class="card-title">Nenhum Usuário Cadastrado</h4>
-                    }
-                    <div class="input-group search-input w-25">
-                        <span class="input-group-text" id="search-input">
-                            <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        <input type="search" class="form-control" placeholder="Pesquisar..." id="filtro">
+                <div class="header-header d-flex w-100">
+                    <div>
+                        <h5 class="card-title mb-1">Usuários Cadastrados</h5>
+                        @if(Model.Total > 1)
+                        {
+                            <h6 class="card-subtitle text-muted">@Model.Total Usuários Cadastrados</h6>
+                        }
+                        else if (Model.Total == 1)
+                        {
+                            <h6 class="card-subtitle text-muted">@Model.Total Usuário Cadastrado</h6>
+                        }
+                        else
+                        {
+                            <h6 class="card-subtitle text-muted">Nenhum Usuário Cadastrado</h6>
+                        }
+                    </div>
+                    <div class="col-4 float-end">
+                        <div class="input-group">
+						    <div class="input-group-prepend">
+							    <span class="input-group-text">
+                                    <i class="align-middle" data-feather="search"></i>
+                                </span>
+						    </div>
+						    <input type="text" class="form-control" placeholder="Username">
+					    </div>
                     </div>
                 </div>
             </div>
@@ -36,6 +40,7 @@
                     <table id="basic-table" class="table table-striped mb-0" role="grid">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Nome</th>
                                 <th>Email</th>
                                 <th>Cargo</th>
@@ -48,11 +53,9 @@
                             {
                                 <tr>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded img-fluid avatar-40 me-3 bg-soft-primary" src="@Url.Content("~/Content/assets/images/shapes/01.png")" alt="profile">
-                                            <h6>@usuario.Nome</h6>
-                                        </div>
+                                        <img class="rounded" src="@Url.Content($"~/img/avatars/{usuario.Foto}")" width="40" alt="profile">
                                     </td>
+                                    <td>@usuario.Nome</td>
                                     <td>@usuario.Email</td>
                                     <td>@usuario.Cargo</td>
                                     <td>@usuario.Setor</td>

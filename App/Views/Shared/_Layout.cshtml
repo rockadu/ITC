@@ -16,6 +16,7 @@
     <title>ITC - @ViewBag.Titulo</title>
 
     <script src="@Url.Content("~/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/js/feather.min.js")"></script>
     <link href="@Url.Content("~/css/classic.css")" rel="stylesheet">
 
 </head>
@@ -41,16 +42,16 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="@Url.Action("Listar", "GestaoDeUsuarios")">
-                            <i class="align-middle" data-feather="monitor"></i> <span class="align-middle">Usuários</span>
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Usuários</span>
                         </a>
                     </li>
                 </ul>
 
                 <div class="sidebar-bottom d-none d-lg-block">
                     <div class="media">
-                        <img class="rounded-circle mr-3" src="img/avatars/avatar.jpg" alt="Chris Wood" width="40" height="40">
+                        <img class="rounded-circle mr-3" src="@Url.Content($"~/img/avatars/{_usuario.Foto}")" alt="Chris Wood" width="40" height="40">
                         <div class="media-body">
-                            <h5 class="mb-1">(</h5>
+                            <h5 class="mb-1">@_usuario.Apelido</h5>
                             <div>
                                 <i class="fas fa-circle text-success"></i> Online
                             </div>
@@ -72,7 +73,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
                                 <div class="position-relative">
-                                    <i class="align-middle" data-feather="bell-off"></i>
+                                    <i class="align-middle" data-feather="bell"></i>
                                     <span class="indicator">4</span>
                                 </div>
                             </a>
@@ -140,10 +141,13 @@
                             </a>
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                                <img src="@Url.Content("~/img/avatars/avatar.jpg")" class="avatar img-fluid rounded-circle mr-1" alt="Chris Wood" /> <span class="text-dark">@_usuario.Apelido</span>
+                                <img src="@Url.Content($"~/img/avatars/{_usuario.Foto}")" class="avatar img-fluid rounded-circle mr-1" alt="@_usuario!.Apelido" />
+                                <span class="text-dark">@_usuario!.Apelido</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Perfil</a>
+                                <a class="dropdown-item" href="pages-profile.html">
+                                    <i class="align-middle mr-1" data-feather="user"></i> Perfil
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Ajuda</a>
                                 <a class="dropdown-item" href="@Url.Action("Logout", "Login")">Sair</a>

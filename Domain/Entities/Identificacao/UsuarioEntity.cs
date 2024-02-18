@@ -6,7 +6,8 @@ public class UsuarioEntity
     public string? Apelido { get; set; }
     public string Email { get; set; } = string.Empty;
     public string Senha { get; set; } = string.Empty;
-    public string? Foto { get; set; }
+    string? _Foto;
+    public string? Foto { get => _Foto ?? "default.png" ; set => _Foto = value; }
     public bool Ativo { get; set; }
     public int CodigoCargo { get; set; }
     public int CodigoSetor { get; set; }
