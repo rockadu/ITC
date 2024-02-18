@@ -108,8 +108,8 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
 
         if (!string.IsNullOrEmpty(request.Filter))
         {
-            query = query.Replace("#FILTER#", query);
-            total = total.Replace("#FILTER#", query);
+            query = query.Replace("#FILTER#", filter);
+            total = total.Replace("#FILTER#", filter);
         }
         else
         {
