@@ -34,6 +34,9 @@
 						    <input type="text" class="form-control" placeholder="Buscar">
 					    </div>
                     </div>
+                    <div class="col text-right">
+                        <button class="btn btn-primary">+ Adicionar</button>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -44,7 +47,6 @@
                             <table id="basic-table" class="table table-striped mb-0" role="grid">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Nome</th>
                                         <th>Email</th>
                                         <th>Cargo</th>
@@ -57,9 +59,9 @@
                                     {
                                         <tr>
                                             <td>
-                                                <img class="rounded" src="@Url.Content($"~/img/avatars/{usuario.Foto}")" width="40" alt="profile">
+                                                <img class="rounded mr-1" src="@Url.Content($"~/img/avatars/{usuario.Foto}")" width="18" alt="profile">
+                                                @usuario.Nome
                                             </td>
-                                            <td>@usuario.Nome</td>
                                             <td>@usuario.Email</td>
                                             <td>@usuario.Cargo</td>
                                             <td>@usuario.Setor</td>
