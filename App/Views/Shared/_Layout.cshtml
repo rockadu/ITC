@@ -17,14 +17,14 @@
 
     <script src="@Url.Content("~/js/jquery.min.js")"></script>
     <script src="@Url.Content("~/js/feather.min.js")"></script>
-    <link href="@Url.Content("~/css/classic.css")" rel="stylesheet">
+    <link href="@Url.Content("~/css/dark.css")" rel="stylesheet">
 
 </head>
 
-<body>
+<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
     <div class="wrapper">
-        <nav class="sidebar">
-            <div class="sidebar-content ">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="index.html">
                     <i class="align-middle" data-feather="box"></i>
                     <span class="align-middle">ITC</span>
@@ -46,105 +46,37 @@
                         </a>
                     </li>
                 </ul>
-
-                <div class="sidebar-bottom d-none d-lg-block">
-                    <div class="media">
-                        <img class="rounded-circle mr-3" src="@Url.Content($"~/img/avatars/{_usuario.Foto}")" alt="Chris Wood" width="40" height="40">
-                        <div class="media-body">
-                            <h5 class="mb-1">@_usuario.Apelido</h5>
-                            <div>
-                                <i class="fas fa-circle text-success"></i> Online
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </nav>
 
         <div class="main">
-            <nav class="navbar navbar-expand navbar-light bg-white">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle d-flex mr-2">
                     <i class="hamburger align-self-center"></i>
                 </a>
 
+                <form class="d-none d-sm-inline-block">
+                    <div class="input-group input-group-navbar">
+                        <input type="text" class="form-control" placeholder="Search projects…" aria-label="Search">
+                        <button class="btn" type="button">
+                            <i class="align-middle" data-feather="search"></i>
+                        </button>
+                    </div>
+                </form>
+
                 <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav navbar-align">
                         <li class="nav-item dropdown">
-                            <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
-                                <div class="position-relative">
-                                    <i class="align-middle" data-feather="bell"></i>
-                                    <span class="indicator">4</span>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
-                                <div class="dropdown-menu-header">
-                                    4 New Notifications
-                                </div>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-2">
-                                                <i class="text-danger" data-feather="alert-circle"></i>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="text-dark">Update completed</div>
-                                                <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-                                                <div class="text-muted small mt-1">2h ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-2">
-                                                <i class="text-warning" data-feather="bell"></i>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="text-dark">Lorem ipsum</div>
-                                                <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-                                                <div class="text-muted small mt-1">6h ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-2">
-                                                <i class="text-primary" data-feather="home"></i>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="text-dark">Login from 192.186.1.1</div>
-                                                <div class="text-muted small mt-1">8h ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-2">
-                                                <i class="text-success" data-feather="user-plus"></i>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="text-dark">New connection</div>
-                                                <div class="text-muted small mt-1">Anna accepted your request.</div>
-                                                <div class="text-muted small mt-1">12h ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="dropdown-menu-footer">
-                                    <a href="#" class="text-muted">Show all notifications</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                               data-bs-toggle="dropdown">
                                 <i class="align-middle" data-feather="settings"></i>
                             </a>
-
-                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                                <img src="@Url.Content($"~/img/avatars/{_usuario.Foto}")" class="avatar img-fluid rounded-circle mr-1" alt="@_usuario!.Apelido" />
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                               data-bs-toggle="dropdown">
+                                <img src="@Url.Content($"~/img/avatars/{_usuario.Foto}")" class="avatar img-fluid rounded-circle me-1"/>
                                 <span class="text-dark">@_usuario!.Apelido</span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="pages-profile.html">
                                     <i class="align-middle mr-1" data-feather="user"></i> Perfil
                                 </a>
@@ -166,14 +98,14 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row text-muted">
-                        <div class="col-6 text-left">
+                        <div class="col-6 text-start">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <a class="text-muted" href="#">Ajuda</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-6 text-right">
+                        <div class="col-6 text-end">
                             <p class="mb-0">
                                 &copy; 2024 - <a href="index.html" class="text-muted">Information Technology Center</a>
                             </p>

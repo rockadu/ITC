@@ -31,7 +31,28 @@
     <None Include="wwwroot\img\brands\npm.svg" />
     <None Include="wwwroot\img\brands\sass.svg" />
     <None Include="wwwroot\img\brands\webpack.svg" />
-    <None Include="wwwroot\js\app.js" />
+    <None Include="wwwroot\js\app.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\js\modules\apexcharts.js" />
+    <None Include="wwwroot\js\modules\bootstrap.js" />
+    <None Include="wwwroot\js\modules\chartjs.js" />
+    <None Include="wwwroot\js\modules\datatables.js" />
+    <None Include="wwwroot\js\modules\daterangepicker.js" />
+    <None Include="wwwroot\js\modules\datetimepicker.js" />
+    <None Include="wwwroot\js\modules\dragula.js" />
+    <None Include="wwwroot\js\modules\feather.js" />
+    <None Include="wwwroot\js\modules\fullcalendar.js" />
+    <None Include="wwwroot\js\modules\mask.js" />
+    <None Include="wwwroot\js\modules\moment.js" />
+    <None Include="wwwroot\js\modules\notyf.js" />
+    <None Include="wwwroot\js\modules\quill.js" />
+    <None Include="wwwroot\js\modules\select2.js" />
+    <None Include="wwwroot\js\modules\sidebar.js" />
+    <None Include="wwwroot\js\modules\theme.js" />
+    <None Include="wwwroot\js\modules\validation.js" />
+    <None Include="wwwroot\js\modules\vector-maps.js" />
+    <None Include="wwwroot\js\modules\wizard.js" />
     <None Include="wwwroot\js\settings.js" />
   </ItemGroup>
 
