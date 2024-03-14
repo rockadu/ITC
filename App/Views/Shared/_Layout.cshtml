@@ -17,7 +17,7 @@
 
     <script src="@Url.Content("~/js/jquery.min.js")"></script>
     <script src="@Url.Content("~/js/feather.min.js")"></script>
-    <link href="@Url.Content("~/css/dark.css")" rel="stylesheet">
+    <link href="@Url.Content("~/css/light.css")" rel="stylesheet">
 
 </head>
 
@@ -41,9 +41,15 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="@Url.Action("Listar", "GestaoDeUsuarios")">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Usuários</span>
+                        <a data-bs-target="#configuracoes" data-bs-toggle="collapse" class="sidebar-link collapsed" aria-expanded="false">
+                            <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Configurações</span>
                         </a>
+                        <ul id="configuracoes" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" style="">
+                            <li class="sidebar-item"><a class="sidebar-link" href="@Url.Action("Listar", "GestaoDeUsuarios")">Usuários</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="forms-input-groups.html">Setores</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="forms-floating-labels.html">Cargos</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="forms-basic-inputs.html">E-mail</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -57,7 +63,7 @@
 
                 <form class="d-none d-sm-inline-block">
                     <div class="input-group input-group-navbar">
-                        <input type="text" class="form-control" placeholder="Search projects…" aria-label="Search">
+                        <input type="text" class="form-control" placeholder="Buscar" aria-label="Search">
                         <button class="btn" type="button">
                             <i class="align-middle" data-feather="search"></i>
                         </button>
