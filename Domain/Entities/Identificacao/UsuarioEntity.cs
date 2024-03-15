@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities.Identificacao;
+﻿using Domain.Entities.Organizacao;
+
+namespace Domain.Entities.Identificacao;
 public class UsuarioEntity
 {
     public int Codigo { get; set; }
