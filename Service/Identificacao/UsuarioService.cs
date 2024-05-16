@@ -3,7 +3,7 @@ using Domain.Dto;
 using Domain.Dto.Identificacao;
 using Domain.Entities.Identificacao;
 using Domain.Models;
-using Repository.Identificacao;
+using Repository.Identificacao.Usuario;
 
 namespace Service.Identificacao;
 

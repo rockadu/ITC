@@ -6,7 +6,7 @@ using Domain.Dto;
 using Domain.Dto.Identificacao;
 using Domain.Models;
 
-namespace Repository.Identificacao;
+namespace Repository.Identificacao.Usuario;
 public class UsuarioRepository : BaseRepository, IUsuarioRepository
 {
     private readonly AppSettings _appSettings;

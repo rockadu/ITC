@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Repository.Identificacao;
+using Repository.Identificacao.Usuario;
 using Repository.Organizacao;
 
 namespace Repository;

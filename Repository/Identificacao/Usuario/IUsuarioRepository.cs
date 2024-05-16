@@ -3,7 +3,7 @@ using Domain.Dto;
 using Domain.Entities.Identificacao;
 using Domain.Models;
 
-namespace Repository.Identificacao;
+namespace Repository.Identificacao.Usuario;
 
 public interface IUsuarioRepository
 {
