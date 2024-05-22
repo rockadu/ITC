@@ -78,7 +78,7 @@ else
         <ul class="pagination">
         @{
             int numeroDeBotoes = 5;
-            int pivot = Model.PageIndex >= numeroDeBotoes ? Model.PageIndex - 2 : 1;
+            int pivot = Model.Pagina >= numeroDeBotoes ? Model.Pagina - 2 : 1;
             int totalPaginas = (int)Math.Ceiling((double)Model.Total / 20);
 
             for (int i = pivot; i <= (pivot + numeroDeBotoes - 1); i++)
@@ -87,8 +87,8 @@ else
 
                 if (totalPaginas > numeroDeBotoes && i == pivot)
                 {
-                    string primeiraSetaCss = Model.PageIndex == 1 ? "light" : "secondary";
-                        string primeiraSetaAction = Model.PageIndex == 1 ? "disabled" : $"onclick='paginar({Model.PageIndex - 1})'";
+                    string primeiraSetaCss = Model.Pagina == 1 ? "light" : "secondary";
+                        string primeiraSetaAction = Model.Pagina == 1 ? "disabled" : $"onclick='paginar({Model.Pagina - 1})'";
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous" @Html.Raw(primeiraSetaAction)>
                             <span aria-hidden="true">«</span>
@@ -96,27 +96,27 @@ else
                     </li>
                 }
 
-                if (totalPaginas > numeroDeBotoes && Model.PageIndex >= numeroDeBotoes && i == pivot)
+                if (totalPaginas > numeroDeBotoes && Model.Pagina >= numeroDeBotoes && i == pivot)
                 {
-                        string resetPaginaUmAction = Model.PageIndex == 1 ? "disabled" : $"onclick='paginar(1)'";
+                        string resetPaginaUmAction = Model.Pagina == 1 ? "disabled" : $"onclick='paginar(1)'";
                     <li class="page-item"><a class="page-link" href="#" @Html.Raw(resetPaginaUmAction)>1 ...</a></li>
                 }
 
-                string botoesCss = i == Model.PageIndex ? "light" : "secondary";
-                    string botoesAction = i == Model.PageIndex ? "disabled" : $"onclick='paginar({i})'";
+                string botoesCss = i == Model.Pagina ? "light" : "secondary";
+                    string botoesAction = i == Model.Pagina ? "disabled" : $"onclick='paginar({i})'";
                 <li class="page-item"><a class="page-link" href="#" @Html.Raw(botoesAction)>@i</a></li>
 
                 if (totalPaginas > numeroDeBotoes && i == (pivot + numeroDeBotoes - 1))
                 {
-                    string ultimaPaginaCss = Model.PageIndex == totalPaginas ? "light" : "secondary";
-                        string ultimaPaginaAction = Model.PageIndex == totalPaginas ? "disabled" : $"onclick='paginar({totalPaginas})'";
+                    string ultimaPaginaCss = Model.Pagina == totalPaginas ? "light" : "secondary";
+                        string ultimaPaginaAction = Model.Pagina == totalPaginas ? "disabled" : $"onclick='paginar({totalPaginas})'";
                         <li class="page-item"><a class="page-link" href="#" @Html.Raw(ultimaPaginaAction)>... @totalPaginas</a></li>
                 }
 
                 if (totalPaginas > numeroDeBotoes && i == (pivot + numeroDeBotoes - 1))
                 {
-                    string ultimaSetaCss = Model.PageIndex == totalPaginas ? "light" : "secondary";
-                        string ultimaSetaAction = Model.PageIndex == totalPaginas ? "disabled" : $"onclick='paginar({totalPaginas})'";
+                    string ultimaSetaCss = Model.Pagina == totalPaginas ? "light" : "secondary";
+                        string ultimaSetaAction = Model.Pagina == totalPaginas ? "disabled" : $"onclick='paginar({totalPaginas})'";
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Next" @Html.Raw(ultimaSetaAction)>
                             <span aria-hidden="true">»</span>

@@ -2,15 +2,14 @@
 
 public class BaseListResultDto<T> where T : class
 {
-    public int PageIndex { get; set; }
-    public int PageSize { get; set; }
-    public int PageCount { get; set; }
+    public int Pagina { get; set; }
+    public int ItensPorPagina { get; set; }
     public int Total { get; set; }
     public List<T> Items { get; set; } = new List<T>();
 
-    public BaseListResultDto(int pageIndex, int pageSize)
+    public BaseListResultDto(int pagina, int itensPorPagina)
     {
-        PageIndex = pageIndex;
-        PageSize = pageSize;
+        Pagina = pagina;
+        ItensPorPagina = itensPorPagina;
     }
 }

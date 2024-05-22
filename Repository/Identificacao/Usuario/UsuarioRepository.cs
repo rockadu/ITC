@@ -68,13 +68,13 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
     public async Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestDto request)
     {
         var items = new List<UsuarioListDto>();
-        var result = new BaseListResultDto<UsuarioListDto>(request.PageIndex, request.PageSize);
+        var result = new BaseListResultDto<UsuarioListDto>(request.Pagina, request.ItensPorPagina);
 
-        string filter = $@"AND usuario.Nome LIKE '%{request.Filter}%'
-	                    OR usuario.Email LIKE '%{request.Filter}%'
-	                    OR cargo.Nome LIKE '%{request.Filter}%'
-	                    OR setor.Nome LIKE '%{request.Filter}%'
-	                    OR unidade.Nome LIKE '%{request.Filter}%'";
+        string filter = $@"AND usuario.Nome LIKE '%{request.Filtro}%'
+	                    OR usuario.Email LIKE '%{request.Filtro}%'
+	                    OR cargo.Nome LIKE '%{request.Filtro}%'
+	                    OR setor.Nome LIKE '%{request.Filtro}%'
+	                    OR unidade.Nome LIKE '%{request.Filtro}%'";
 
         string query = $@"SELECT
 	                usuario.Codigo AS Codigo,
@@ -94,7 +94,7 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
                     #FILTER#
 				ORDER BY usuario.Nome
                 OFFSET {request.Offset()} ROW
-                FETCH NEXT {request.PageSize} ROWS ONLY";
+                FETCH NEXT {request.ItensPorPagina} ROWS ONLY";
 
         string total = $@"SELECT
                             COUNT(*) AS TOTAL
@@ -106,7 +106,7 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
                         WHERE 1 = 1
                             #FILTER#";
 
-        if (!string.IsNullOrEmpty(request.Filter))
+        if (!string.IsNullOrEmpty(request.Filtro))
         {
             query = query.Replace("#FILTER#", filter);
             total = total.Replace("#FILTER#", filter);

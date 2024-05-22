@@ -2,12 +2,12 @@
 
 public class BaseListRequestDto
 {
-    public int PageIndex { get; set; }
-    public int PageSize { get; set; }
-    public string? Filter { get; set; }
+    public int Pagina { get; set; }
+    public int ItensPorPagina { get; set; }
+    public string? Filtro { get; set; }
 
     public int Offset()
     {
-        return PageSize * (PageIndex - 1);
+        return ItensPorPagina * (Pagina - 1);
     }
 }

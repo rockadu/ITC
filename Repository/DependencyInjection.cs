@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Repository.Identificacao.Usuario;
-using Repository.Organizacao;
+using Repository.Organizacao.Setor;
 
 namespace Repository;
 public static class DependencyInjection

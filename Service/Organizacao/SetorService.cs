@@ -1,7 +1,7 @@
 ﻿using Domain.Dto;
 using Domain.Dto.Organizacao;
 using Domain.Models;
-using Repository.Organizacao;
+using Repository.Organizacao.Setor;
 
 namespace Service.Organizacao;
 
