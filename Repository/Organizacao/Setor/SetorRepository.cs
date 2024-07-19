@@ -11,5 +11,5 @@ public class SetorRepository : ISetorRepository
         _appSettings = appSettings;
     }
 
-    public async Task BaseListResultDto<>
+    //public async Task BaseListResultDto<>
 }
