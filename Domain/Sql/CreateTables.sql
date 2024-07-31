@@ -44,12 +44,6 @@ CREATE TABLE PerfilPermissoes (
     CONSTRAINT FK_PERFPERM_PERM FOREIGN KEY (CodigoPermissao) REFERENCES Permissao(Codigo)
 )
 
-CREATE TABLE TemaSistema(
-    Codigo INT IDENTITY(1,1) PRIMARY KEY,
-    Categoria VARCHAR(64) NOT NULL,
-    Valor VARCHAR(128) NOT NULL,
-)
-
 CREATE TABLE Usuario (
     Codigo INT PRIMARY KEY IDENTITY(1,1),
     Nome VARCHAR(128) NOT NULL,
@@ -60,8 +54,6 @@ CREATE TABLE Usuario (
     CodigoCargo INT,
     CodigoSetor INT,
     CodigoSuperiorImediato INT,
-    EstiloBody VARCHAR(256),
-    EstiloHtml VARCHAR(128),
     Ativo BIT NOT NULL,
     CONSTRAINT FK_USU_CARGO FOREIGN KEY (CodigoCargo) REFERENCES Cargo(Codigo),
     CONSTRAINT FK_USU_SETOR FOREIGN KEY (CodigoSetor) REFERENCES Setor(Codigo),
