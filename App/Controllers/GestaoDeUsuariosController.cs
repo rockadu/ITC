@@ -25,4 +25,28 @@ public class GestaoDeUsuariosController : BaseController
         return View(await _usuarioService.Listar(request));
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GerarTemplateExcelUsuarios()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Upload(IFormFile file, int dataVirada)
+    {
+        try
+        {
+            if (file.Length > 0)
+            {
+                await _usuarioService.ImportarExcel(file, dataVirada);
+
+                return Json(new ResultModel(), JsonRequestBehavior.AllowGet);
+            }
+            return View();
+        }
+        catch (Exception ex)
+        {
+            return Json(new ResultModel().Fail(ex.Message), JsonRequestBehavior.AllowGet);
+        }
+    }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{CC0F6CA1-7DF9-40FF-B855-5EA6394F6B77}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Api", "1 - Api", "{D824D598-0E03-4D3A-8CCD-FF4DF1E87386}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presenter", "1 - Presenter", "{D824D598-0E03-4D3A-8CCD-FF4DF1E87386}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{41D3A57D-E3E9-4E43-B75A-962A6FDA1E03}"
 EndProject
@@ -13,15 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Test", "4 - Test", "{4D8004D7-FD94-4BEC-88D9-AB8E8C8EE0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{21CA7583-3DA2-4E16-B0FC-85204C556B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{21CA7583-3DA2-4E16-B0FC-85204C556B95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{3CF04805-8A50-40A9-AA6B-AF66B8A023EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{3CF04805-8A50-40A9-AA6B-AF66B8A023EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{203ACA67-CFE5-4868-9402-7C1E3C90B251}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{203ACA67-CFE5-4868-9402-7C1E3C90B251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{6233DDBC-DE12-4464-AFD9-55BE2C1A491C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{6233DDBC-DE12-4464-AFD9-55BE2C1A491C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B2AF8E68-CBAA-4270-97E7-FDDA90949F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{B2AF8E68-CBAA-4270-97E7-FDDA90949F5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
