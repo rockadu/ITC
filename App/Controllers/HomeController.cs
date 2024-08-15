@@ -13,6 +13,7 @@ public class HomeController : BaseController
 
     public IActionResult Index()
     {
+        var a = GetCurrentUserName();
         return View();
     }
 }

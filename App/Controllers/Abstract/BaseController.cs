@@ -5,10 +5,16 @@ namespace App.Controllers.Abstract;
 
 public class BaseController : Controller
 {
-    public ClaimsPrincipal claimUser = new ClaimsPrincipal();
-
     public BaseController()
     {
-        claimUser = HttpContext?.User;
+    }
+    protected string GetCurrentUserId()
+    {
+        return User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+
+    protected string GetCurrentUserName()
+    {
+        return User.Claims.FirstOrDefault(x => x.Type.Equals("Usuario")).ToString();
     }
 }

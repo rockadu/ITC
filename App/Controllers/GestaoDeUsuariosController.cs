@@ -31,22 +31,22 @@ public class GestaoDeUsuariosController : BaseController
         return Ok();
     }
 
-    [HttpPost]
-    public async Task<ActionResult> Upload(IFormFile file, int dataVirada)
-    {
-        try
-        {
-            if (file.Length > 0)
-            {
-                await _usuarioService.ImportarExcel(file, dataVirada);
+    //[HttpPost]
+    //public async Task<ActionResult> Upload(IFormFile file)
+    //{
+    //    try
+    //    {
+    //        if (file.Length > 0)
+    //        {
+    //            await _usuarioService.ImportarExcel(file, dataVirada);
 
-                return Json(new ResultModel(), JsonRequestBehavior.AllowGet);
-            }
-            return View();
-        }
-        catch (Exception ex)
-        {
-            return Json(new ResultModel().Fail(ex.Message), JsonRequestBehavior.AllowGet);
-        }
-    }
+    //            return Json(new ResultModel(), JsonRequestBehavior.AllowGet);
+    //        }
+    //        return View();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return Json(new ResultModel().Fail(ex.Message), JsonRequestBehavior.AllowGet);
+    //    }
+    //}
 }
