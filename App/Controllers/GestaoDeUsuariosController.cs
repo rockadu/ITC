@@ -14,13 +14,8 @@ public class GestaoDeUsuariosController : BaseController
         _usuarioService = usuarioService;
     }
 
-    public async Task<IActionResult> Listar()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> ListarUsuarios(BaseListRequestDto request)
+    [HttpGet]
+    public async Task<IActionResult> Listar(BaseListRequestDto request)
     {
         return View(await _usuarioService.Listar(request));
     }

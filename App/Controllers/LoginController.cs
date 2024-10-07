@@ -34,8 +34,6 @@ public class LoginController : BaseController
     {
         var _usuario = await _usuarioService.Logar(login.Email, login.Senha);
 
-        var a = JsonSerializer.Serialize(_usuario);
-
         if (_usuario != null)
         {
             List<Claim> claims = new List<Claim>() {

@@ -8,6 +8,6 @@ public class BaseListRequestDto
 
     public int Offset()
     {
-        return ItensPorPagina * (Pagina - 1);
+        return ItensPorPagina * (Pagina <= 1 ? 0 : Pagina - 1);
     }
 }
