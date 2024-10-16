@@ -684,7 +684,7 @@
                         </li>
                         <!-- !INICIO -->
                         <!-- CONFIGURACOES -->
-                        <li class="slide has-sub">
+                        <li class="slide has-sub @ViewBag.MenuConfig">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                                     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -695,51 +695,29 @@
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
                             <ul class="slide-menu child1">
-                                <li class="slide side-menu__label1">
-                                    <a href="javascript:void(0);">Configurações</a>
-                                </li>
-                                <li class="slide">
-                                    <a href="borders.html" class="side-menu__item">Borders</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path d="M5 19h14V5H5v14zm2.5-7c0-.2.02-.39.04-.58l-1.27-.99c-.11-.09-.15-.26-.07-.39l1.2-2.07c.08-.13.23-.18.37-.13l1.49.6c.31-.25.66-.44 1.02-.6l.22-1.59c.03-.14.15-.25.3-.25h2.4c.15 0 .27.11.3.25l.22 1.59c.37.15.7.35 1.01.59l1.49-.6c.14-.05.29 0 .37.13l1.2 2.07c.08.13.04.29-.07.39l-1.27.99c.03.2.04.39.04.59 0 .2-.02.39-.04.58l1.27.99c.11.09.15.26.07.39l-1.2 2.07c-.08.13-.23.18-.37.13l-1.49-.6c-.31.24-.65.44-1.01.59l-.22 1.59c-.03.15-.15.26-.3.26h-2.4c-.15 0-.27-.11-.3-.25l-.22-1.59c-.37-.15-.7-.35-1.01-.59l-1.49.6c-.14.05-.29 0-.37-.13l-1.2-2.07c-.08-.13-.04-.29.07-.39l1.27-.99c-.03-.2-.05-.39-.05-.59z" opacity=".3" />
-                                    <path d="M6.21 13.97l1.2 2.07c.08.13.23.18.37.13l1.49-.6c.31.24.64.44 1.01.59l.22 1.59c.03.14.15.25.3.25h2.4c.15 0 .27-.11.3-.26l.22-1.59c.36-.15.7-.35 1.01-.59l1.49.6c.14.05.29 0 .37-.13l1.2-2.07c.08-.13.04-.29-.07-.39l-1.27-.99c.03-.19.04-.39.04-.58 0-.2-.02-.39-.04-.59l1.27-.99c.11-.09.15-.26.07-.39l-1.2-2.07c-.08-.13-.23-.18-.37-.13l-1.49.6c-.31-.24-.64-.44-1.01-.59l-.22-1.59c-.03-.14-.15-.25-.3-.25h-2.4c-.15 0-.27.11-.3.26l-.22 1.59c-.36.15-.71.34-1.01.58l-1.49-.6c-.14-.05-.29 0-.37.13l-1.2 2.07c-.08.13-.04.29.07.39l1.27.99c-.03.2-.05.39-.05.59 0 .2.02.39.04.59l-1.27.99c-.11.1-.14.26-.06.39zM12 10.29c.94 0 1.71.77 1.71 1.71s-.77 1.71-1.71 1.71-1.71-.77-1.71-1.71.77-1.71 1.71-1.71zM19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm0 16H5V5h14v14z" />
-                                </svg>
-                                <span class="side-menu__label">Configurações</span>
-                                <i class="fe fe-chevron-right side-menu__angle"></i>
-                            </a>
-                            <ul class="slide-menu child1" style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(0px, 1097px); display: block; box-sizing: border-box;" data-popper-placement="bottom">
-                                <li class="slide side-menu__label1">
-                                    <a href="javascript:void(0);">Organização</a>
-                                </li>
                                 <li class="slide has-sub">
                                     <a href="javascript:void(0);" class="side-menu__item">
                                         Organização
                                         <i class="fe fe-chevron-right side-menu__angle"></i>
                                     </a>
-                                    <ul class="slide-menu child2" style="display: block; box-sizing: border-box;">
+                                    <ul class="slide-menu child2">
                                         <li class="slide">
-                                            <a href="form-inputs.html" class="side-menu__item">Usuários</a>
+                                            <a href="@Url.Action("Listar", "Usuario")" class="side-menu__item">Usuários</a>
                                         </li>
                                         <li class="slide">
-                                            <a href="form-inputs.html" class="side-menu__item">Cargos</a>
+                                            <a href="javascript:void(0);" class="side-menu__item">Cargos</a>
                                         </li>
                                         <li class="slide">
-                                            <a href="form-inputs.html" class="side-menu__item">Setores</a>
+                                            <a href="javascript:void(0);" class="side-menu__item">Setores</a>
                                         </li>
                                         <li class="slide">
-                                            <a href="form-inputs.html" class="side-menu__item">Unidades</a>
+                                            <a href="javascript:void(0);" class="side-menu__item">Filiais</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
+
                         <!-- !CONFIGURACOES -->
                     </ul>
                     <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>

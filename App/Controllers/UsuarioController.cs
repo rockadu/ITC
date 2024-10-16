@@ -5,11 +5,11 @@ using Service.Identificacao;
 
 namespace App.Controllers;
 
-public class GestaoDeUsuariosController : BaseController
+public class UsuarioController : BaseController
 {
     private readonly IUsuarioService _usuarioService;
 
-    public GestaoDeUsuariosController(IUsuarioService usuarioService)
+    public UsuarioController(IUsuarioService usuarioService)
     {
         _usuarioService = usuarioService;
     }
@@ -17,6 +17,7 @@ public class GestaoDeUsuariosController : BaseController
     [HttpGet]
     public async Task<IActionResult> Listar(BaseListRequestDto request)
     {
+        ViewBag.MenuConfig = "open";
         return View(await _usuarioService.Listar(request));
     }
 
