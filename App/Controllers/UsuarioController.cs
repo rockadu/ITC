@@ -18,6 +18,9 @@ public class UsuarioController : BaseController
     public async Task<IActionResult> Listar(BaseListRequestDto request)
     {
         ViewBag.MenuConfig = "open";
+        ViewBag.MenuConfigOrganizacao = "open";
+        ViewBag.MenuConfigOrganizacaoUsuario = "active";
+
         return View(await _usuarioService.Listar(request));
     }
 
