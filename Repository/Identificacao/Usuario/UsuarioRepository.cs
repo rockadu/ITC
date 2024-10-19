@@ -5,6 +5,7 @@ using Repository.Base;
 using Domain.Dto;
 using Domain.Dto.Identificacao;
 using Domain.Models;
+using Dapper;
 
 namespace Repository.Identificacao.Usuario;
 public class UsuarioRepository : BaseRepository, IUsuarioRepository
@@ -70,13 +71,13 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
         var items = new List<UsuarioListDto>();
         var result = new BaseListResultDto<UsuarioListDto>(request.Pagina, request.ItensPorPagina);
 
-        string filter = $@"AND usuario.Nome LIKE '%{request.Filtro}%'
+        string _filtro = $@"AND usuario.Nome LIKE '%{request.Filtro}%'
 	                    OR usuario.Email LIKE '%{request.Filtro}%'
 	                    OR cargo.Nome LIKE '%{request.Filtro}%'
 	                    OR setor.Nome LIKE '%{request.Filtro}%'
 	                    OR unidade.Nome LIKE '%{request.Filtro}%'";
 
-        string query = $@"SELECT
+        string _comando = $@"SELECT
 	                usuario.Codigo AS Codigo,
                     usuario.Foto AS Foto,
 	                usuario.Nome AS Nome,
@@ -84,7 +85,8 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
 	                cargo.Nome AS Cargo,
 	                setor.Nome AS Setor,
 	                unidade.Nome AS Unidade,
-	                Usuario.Ativo AS Ativo
+	                Usuario.Ativo AS Ativo,
+                    COUNT(*) OVER() TotalItens
                 FROM
 	                Usuario usuario
 	                LEFT JOIN Cargo cargo ON usuario.CodigoCargo = cargo.Codigo
@@ -93,71 +95,17 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
                 WHERE 1 = 1
                     #FILTER#
 				ORDER BY usuario.Nome
-                OFFSET {request.Offset()} ROW
-                FETCH NEXT {request.ItensPorPagina} ROWS ONLY";
-
-        string total = $@"SELECT
-                            COUNT(*) AS TOTAL
-                        FROM
-	                        Usuario usuario
-	                        LEFT JOIN Cargo cargo ON usuario.CodigoCargo = cargo.Codigo
-	                        LEFT JOIN Setor setor ON usuario.CodigoSetor = setor.Codigo
-	                        LEFT JOIN Unidade unidade ON setor.CodigoUnidade = unidade.Codigo
-                        WHERE 1 = 1
-                            #FILTER#";
+                OFFSET @offset ROW
+                FETCH NEXT @itensPorPagina ROWS ONLY";
 
         if (!string.IsNullOrEmpty(request.Filtro))
-        {
-            query = query.Replace("#FILTER#", filter);
-            total = total.Replace("#FILTER#", filter);
-        }
+            _comando = _comando.Replace("#FILTER#", _filtro);
         else
-        {
-            query = query.Replace("#FILTER#", string.Empty);
-            total = total.Replace("#FILTER#", string.Empty);
-        }
+            _comando = _comando.Replace("#FILTER#", string.Empty);
 
-        using (SqlConnection conn = new SqlConnection(_appSettings.DataBase.StringConnection()))
-        {
-            conn.Open();
-            var cmd = new SqlCommand(query, conn);
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            var result = await _conexao.QueryAsync<UsuarioListDto>(_comando, new { offset = request.Deslocamento, itensPorPagina = request.ItensPorPagina });
+                
 
-            var reader = await cmd.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
-            {
-                var usuario = new UsuarioListDto();
-                usuario.Codigo = GetInt(reader, "Codigo");
-                usuario.Foto = GetStringNullable(reader, "Foto");
-                usuario.Nome = GetString(reader, "Nome");
-                usuario.Email = GetString(reader, "Email");
-                usuario.Cargo = GetString(reader, "Cargo");
-                usuario.Setor = GetString(reader, "Setor");
-                usuario.Unidade = GetString(reader, "Unidade");
-                usuario.Ativo = GetBool(reader, "Ativo");
-
-                items.Add(usuario);
-            }
-
-            conn.Close();
-        };
-
-        using (SqlConnection conn = new SqlConnection(_appSettings.DataBase.StringConnection()))
-        {
-            conn.Open();
-            var cmd = new SqlCommand(total, conn);
-
-            var reader = await cmd.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
-            {
-                result.Total = GetInt(reader, "TOTAL");
-            }
-
-            conn.Close();
-        };
-
-        result.Items = items;
-        return result;
     }
 }
