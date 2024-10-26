@@ -68,14 +68,7 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
 
     public async Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestDto request)
     {
-        var items = new List<UsuarioListDto>();
-        var result = new BaseListResultDto<UsuarioListDto>(request.Pagina, request.ItensPorPagina);
-
-        string _filtro = $@"AND usuario.Nome LIKE '%{request.Filtro}%'
-	                    OR usuario.Email LIKE '%{request.Filtro}%'
-	                    OR cargo.Nome LIKE '%{request.Filtro}%'
-	                    OR setor.Nome LIKE '%{request.Filtro}%'
-	                    OR unidade.Nome LIKE '%{request.Filtro}%'";
+        var _result = new BaseListResultDto<UsuarioListDto>(request.Pagina, request.ItensPorPagina);
 
         string _comando = $@"SELECT
 	                usuario.Codigo AS Codigo,
@@ -93,19 +86,23 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
 	                LEFT JOIN Setor setor ON usuario.CodigoSetor = setor.Codigo
 	                LEFT JOIN Unidade unidade ON setor.CodigoUnidade = unidade.Codigo
                 WHERE 1 = 1
-                    #FILTER#
-				ORDER BY usuario.Nome
+                    AND @filtro IS NULL OR (usuario.Nome LIKE '%' + @filtro + '%'
+	                    OR usuario.Email LIKE '%' + @filtro + '%'
+	                    OR cargo.Nome LIKE '%' + @filtro + '%'
+	                    OR setor.Nome LIKE '%' + @filtro + '%'
+	                    OR unidade.Nome LIKE '%' + @filtro + '%')
+				ORDER BY 
+                    usuario.Nome
                 OFFSET @offset ROW
                 FETCH NEXT @itensPorPagina ROWS ONLY";
 
-        if (!string.IsNullOrEmpty(request.Filtro))
-            _comando = _comando.Replace("#FILTER#", _filtro);
-        else
-            _comando = _comando.Replace("#FILTER#", string.Empty);
 
         using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
-            var result = await _conexao.QueryAsync<UsuarioListDto>(_comando, new { offset = request.Deslocamento, itensPorPagina = request.ItensPorPagina });
-                
+            _result.Items = (await _conexao.QueryAsync<UsuarioListDto>(_comando, new { 
+                offset = request.Deslocamento, itensPorPagina = request.ItensPorPagina, filtro = request.Filtro })).ToList();
 
+        _result.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
+                
+        return _result;
     }
 }
