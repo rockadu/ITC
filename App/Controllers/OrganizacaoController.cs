@@ -1,22 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using Service.Organizacao;
 
 namespace App.Controllers
 {
     public class OrganizacaoController : Controller
     {
-        public IActionResult Setores()
+        private readonly IOrganizacaoService _organizacaoService;
+
+        public OrganizacaoController(IOrganizacaoService organizacaoService)
         {
-            return View();
+            _organizacaoService = organizacaoService;
         }
 
-        public IActionResult Cargos()
+        public async Task<IActionResult> Setores(BaseListRequestDto request)
         {
-            return View();
+            var _resultado = await _organizacaoService.ListarSetores(request);
+            return View(_resultado);
         }
 
-        public IActionResult Unidades()
+        public async Task<IActionResult> Cargos(BaseListRequestDto request)
         {
-            return View();
+            var _resultado = await _organizacaoService.ListarCargos(request);
+            return View(_resultado);
+        }
+
+        public async Task<IActionResult> Unidades(BaseListRequestDto request)
+        {
+            var _resultado = await _organizacaoService.ListarUnidades(request);
+            return View(_resultado);
         }
     }
 }

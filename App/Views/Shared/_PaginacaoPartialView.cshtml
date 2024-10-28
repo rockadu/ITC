@@ -1,0 +1,16 @@
+﻿@model Domain.Dto.BaseListResultDto<object>
+
+<div>
+    Pagina @(Model.Pagina) de @Model.Total
+</div>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Total; i++)
+        {
+            <li class="@(i == Model.Pagina ? "active" : "")">
+                <a asp-action="Index" asp-route-pageIndex="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Dto.Organizacao;
 
-public class SetorListDto
+public class CargoListDto
 {
     public int Codigo { get; set; }
     public string Chave { get; set; } = string.Empty;

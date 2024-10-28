@@ -14,18 +14,18 @@ public class OrganizacaoService : IOrganizacaoService
         _repo = setorRepository;
     }
 
-    public Task<BaseListResultDto<SetorListDto>> ListarCargos(BaseListRequestDto request)
+    public async Task<BaseListResultDto<CargoListDto>> ListarCargos(BaseListRequestDto request)
     {
-        throw new NotImplementedException();
+        return await _repo.ListarCargos(request);
     }
 
-    public Task<BaseListResultDto<SetorListDto>> ListarSetores(BaseListRequestDto request)
+    public async Task<BaseListResultDto<SetorListDto>> ListarSetores(BaseListRequestDto request)
     {
-        throw new NotImplementedException();
+        return await _repo.ListarSetores(request);
     }
 
-    public Task<BaseListResultDto<SetorListDto>> ListarUnidades(BaseListRequestDto request)
+    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidades(BaseListRequestDto request)
     {
-        throw new NotImplementedException();
+        return await _repo.ListarUnidades(request);
     }
 }

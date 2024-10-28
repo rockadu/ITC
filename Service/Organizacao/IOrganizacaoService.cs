@@ -7,6 +7,6 @@ namespace Service.Organizacao;
 public interface IOrganizacaoService
 {
     Task<BaseListResultDto<SetorListDto>> ListarSetores(BaseListRequestDto request);
-    Task<BaseListResultDto<SetorListDto>> ListarCargos(BaseListRequestDto request);
-    Task<BaseListResultDto<SetorListDto>> ListarUnidades(BaseListRequestDto request);
+    Task<BaseListResultDto<CargoListDto>> ListarCargos(BaseListRequestDto request);
+    Task<BaseListResultDto<UnidadeListDto>> ListarUnidades(BaseListRequestDto request);
 }
