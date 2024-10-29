@@ -47,7 +47,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
                 filtro = request.Filtro
             })).ToList();
 
-        _result.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
+        _result.Paginacao.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
 
         return _result;
     }
@@ -85,7 +85,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
                 filtro = request.Filtro
             })).ToList();
 
-        _result.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
+        _result.Paginacao.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
 
         return _result;
     }
@@ -120,7 +120,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
                 filtro = request.Filtro
             })).ToList();
 
-        _result.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
+        _result.Paginacao.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
 
         return _result;
     }

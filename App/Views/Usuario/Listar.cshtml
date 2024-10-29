@@ -1,5 +1,9 @@
 ﻿@model Domain.Dto.BaseListResultDto<Domain.Dto.Identificacao.UsuarioListDto>
 
+@{
+    ViewData["Titulo"] = "Usuários";
+}
+
 <div class="container-fluid">
     <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
         <div class="my-auto">
@@ -105,18 +109,5 @@
         </div>
     </div>
 
-    <div>
-        Page @(Model.Pagina) of @Model.Total
-    </div>
-
-    <nav>
-        <ul class="pagination">
-            @for (int i = 1; i <= Model.Total; i++)
-            {
-                <li class="@(i == Model.Pagina ? "active" : "")">
-                    <a asp-action="Index" asp-route-pageIndex="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
-                </li>
-            }
-        </ul>
-    </nav>
+    <partial name="_PaginacaopartialView" model="@Model.Paginacao" />
 </div>

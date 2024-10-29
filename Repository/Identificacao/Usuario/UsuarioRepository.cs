@@ -101,7 +101,7 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
             _result.Items = (await _conexao.QueryAsync<UsuarioListDto>(_comando, new { 
                 offset = request.Deslocamento, itensPorPagina = request.ItensPorPagina, filtro = request.Filtro })).ToList();
 
-        _result.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
+        _result.Paginacao.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
                 
         return _result;
     }
