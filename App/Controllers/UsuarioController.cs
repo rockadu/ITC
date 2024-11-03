@@ -1,10 +1,12 @@
 ﻿using App.Controllers.Abstract;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Identificacao;
 
 namespace App.Controllers;
 
+[Authorize]
 public class UsuarioController : BaseController
 {
     private readonly IUsuarioService _usuarioService;
@@ -17,10 +19,6 @@ public class UsuarioController : BaseController
     [HttpGet]
     public async Task<IActionResult> Listar(BaseListRequestDto request)
     {
-        ViewBag.MenuConfig = "open";
-        ViewBag.MenuConfigOrganizacao = "open";
-        ViewBag.MenuConfigOrganizacaoUsuario = "active";
-
         return View(await _usuarioService.Listar(request));
     }
 

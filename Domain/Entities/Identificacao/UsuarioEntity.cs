@@ -18,4 +18,20 @@ public class UsuarioEntity
     public CargoEntity Cargo { get; set; } = new CargoEntity();
     public List<PerfilEntity> Perfis { get; set; } = new List<PerfilEntity>();
     public List<PermissaoEntity> Permissoes { get; set; } = new List<PermissaoEntity>();
+
+    public string GerarMenu()
+    {
+        var _rawMenu = "";
+
+
+
+        return _rawMenu;
+    }
+
+    private string MenuConfiguracoes()
+    {
+        var _rawMenuConfiguracoes = "";
+
+        return _rawMenuConfiguracoes;
+    }
 }

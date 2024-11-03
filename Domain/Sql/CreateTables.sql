@@ -54,10 +54,12 @@ CREATE TABLE Usuario (
     CodigoCargo INT,
     CodigoSetor INT,
     CodigoSuperiorImediato INT,
+    CodigoUnidade INT,
     Ativo BIT NOT NULL,
     CONSTRAINT FK_USU_CARGO FOREIGN KEY (CodigoCargo) REFERENCES Cargo(Codigo),
     CONSTRAINT FK_USU_SETOR FOREIGN KEY (CodigoSetor) REFERENCES Setor(Codigo),
-    CONSTRAINT FK_USU_SUPIM FOREIGN KEY (CodigoSuperiorImediato) REFERENCES Usuario(Codigo)
+    CONSTRAINT FK_USU_SUPIM FOREIGN KEY (CodigoSuperiorImediato) REFERENCES Usuario(Codigo),
+    CONSTRAINT FK_USU_UNIDA FOREIGN KEY (CodigoUniade) REFERENCES Unidade(Codigo)
 )
 
 CREATE TABLE UsuarioPerfis (
