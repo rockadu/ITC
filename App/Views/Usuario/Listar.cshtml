@@ -41,6 +41,7 @@
                             <button class="btn btn-primary" type="submit" value="Search"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
+                    <button class="btn btn-primary" onclick="$('#_AdicionarUsuarioModal').modal('show')">Adicionar</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -66,7 +67,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <span class="avatar avatar-xs me-2 online avatar-rounded">
-                                                    <img src="../assets/images/faces/3.jpg" alt="img">
+                                                    <img src="" alt="img">
                                                 </span>@item.Nome
                                             </div>
                                         </td>
@@ -76,13 +77,13 @@
                                         <td>
                                             <div class="avatar-list-stacked">
                                                 <span class="avatar avatar-sm avatar-rounded">
-                                                    <img src="../assets/images/faces/2.jpg" alt="img">
+                                                    <img src="" alt="img">
                                                 </span>
                                                 <span class="avatar avatar-sm avatar-rounded">
-                                                    <img src="../assets/images/faces/8.jpg" alt="img">
+                                                    <img src="" alt="img">
                                                 </span>
                                                 <span class="avatar avatar-sm avatar-rounded">
-                                                    <img src="../assets/images/faces/2.jpg" alt="img">
+                                                    <img src="" alt="img">
                                                 </span>
                                                 <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
                                                     +4
@@ -113,4 +114,129 @@
     </div>
 
     <partial name="_PaginacaopartialView" model="@Model.Paginacao" />
+    <partial name="_ModalAdicionarUsuarioPartialView" model="1" />
 </div>
+
+@section Scripts {
+    <script>
+    function enviarFormulario() {
+        const nome = $('#nome').val();
+        const apelido = $('#apelido').val();
+        const email = $('#email').val();
+        const unidade = $('#unidade').val();
+        const setor = $('#setor').val();
+        const cargo = $('#cargo').val();
+
+        const dadosFormulario = {
+            Nome: nome,
+            Apelido: apelido,
+            Email: email,
+            CodigoUnidade: Number(unidade),
+            CodigoSetor: Number(setor),
+                CodigoCargo: Number(cargo) == 0 ? null : Number(cargo)
+        };
+
+        $.ajax({
+            url: '@(Url.Action("Criar", "Usuario"))',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(dadosFormulario),
+            success: function (response) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Dados enviados com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: function (error) {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao enviar os dados.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        
+        $('.select-control').each(function() {
+            const $modalParent = $(this).closest('.modal'); // Encontra o modal mais próximo do select
+            $(this).select2({
+                dropdownParent: $modalParent
+            });
+        });
+
+        function carregarUnidades() {
+            $("#setor").attr('disabled', true);
+            $.ajax({
+                url: '@(Url.Action("UnidadesSelectList","Organizacao"))',
+                type: 'GET',
+                success: function (data) {
+                    const unidadeSelect = $('#unidade');
+                    unidadeSelect.empty();
+                    unidadeSelect.append('<option value="">Selecione a Unidade</option>');
+                    data.forEach(function (item) {
+                        unidadeSelect.append(`<option value="${item.chave}">${item.valor}</option>`);
+                    });
+                },
+                error: function () {
+                    alert('Erro ao carregar Unidades.');
+                }
+            });
+        }
+
+        function carregarSetores(codigoUnidade) {
+            $.ajax({
+                url: `@(Url.Action("SetoresPorUnidadeSelectList","Organizacao"))?codigoUnidade=${codigoUnidade}`,
+                type: 'GET',
+                success: function (data) {
+                    $("#setor").removeAttr('disabled');
+                    const setorSelect = $('#setor');
+                    setorSelect.empty();
+                    setorSelect.append('<option value="">Selecione o Setor</option>');
+                    data.forEach(function (item) {
+                        setorSelect.append(`<option value="${item.chave}">${item.valor}</option>`);
+                    });
+                },
+                error: function () {
+                    alert('Erro ao carregar Setores.');
+                }
+            });
+        }
+
+        function carregarCargos() {
+            $.ajax({
+                url: '@(Url.Action("CargosSelectList","Organizacao"))',
+                type: 'GET',
+                success: function (data) {
+                    const cargoSelect = $('#cargo');
+                    cargoSelect.empty();
+                    cargoSelect.append('<option value="">Selecione o Cargo</option>');
+                    data.forEach(function (item) {
+                        cargoSelect.append(`<option value="${item.chave}">${item.valor}</option>`);
+                    });
+                },
+                error: function () {
+                    alert('Erro ao carregar Cargos.');
+                }
+            });
+        }
+
+        $('#unidade').change(function () {
+            const codigoUnidade = $(this).val();
+            if (codigoUnidade) {
+                carregarSetores(codigoUnidade);
+            } else {
+                $('#setor').empty().append('<option value="">Selecione o Setor</option>');
+            }
+        });
+
+        // Carregar Unidades e Cargos ao carregar a página
+        carregarUnidades();
+        carregarCargos();
+    });
+</script>
+}

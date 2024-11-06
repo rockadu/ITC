@@ -19,14 +19,6 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
-                            <label>Apelido</label>
-                            <input type="text" id="apelido" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
                             <label>Email</label>
                             <input type="text" id="email" class="form-control" />
                         </div>
@@ -36,7 +28,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label>Unidade</label>
-                            <select  id="unidade" class="select-control" />
+                            <select id="unidade" class="select-control"></select>
                         </div>
                     </div>
                 </div>
@@ -44,7 +36,9 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label>Setor</label>
-                            <select id="setor" class="select-control" />
+                            <select id="setor" class="select-control" disabled>
+                                <option>Selecione uma unidade</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -52,14 +46,14 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label>Cargo</label>
-                            <select id="cargo" class="select-control" />
+                            <select id="cargo" class="select-control"></select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Criar</button>
+                <button type="button" class="btn btn-primary" onclick="enviarFormulario()">Criar</button>
             </div>
         </div>
     </div>

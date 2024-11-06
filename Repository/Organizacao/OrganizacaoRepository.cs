@@ -1,9 +1,11 @@
 ﻿using CrossCutting.Configuration;
 using Dapper;
 using Domain.Dto;
+using Domain.Dto.Abstrato;
 using Domain.Dto.Identificacao;
 using Domain.Dto.Organizacao;
 using Domain.Models;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Repository.Organizacao;
@@ -123,5 +125,63 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         _result.Paginacao.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
 
         return _result;
+    }
+
+    public async Task<List<ListaParaSelectDto>> SetoresPorUnidadeSelectList(int codigoUnidade)
+    {
+        var _result = new List<SetorListDto>();
+
+        string _comando = $@"SELECT
+	                setor.Codigo AS Chave,
+	                setor.Nome AS Valor
+                FROM
+	                Setor setor
+                WHERE 
+                    setor.CodigoUnidade = @codigoUnidade
+                    AND setor.Ativo = 1
+				ORDER BY 
+                    setor.Nome";
+
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            return (await _conexao.QueryAsync<ListaParaSelectDto>(_comando, new { codigoUnidade = codigoUnidade })).ToList();
+    }
+
+    public async Task<List<ListaParaSelectDto>> CargosSelectList()
+    {
+        var _result = new List<SetorListDto>();
+
+        string _comando = $@"SELECT
+	                cargo.Codigo AS Chave,
+	                cargo.Nome AS Valor
+                FROM
+	                Cargo cargo
+                WHERE 
+                    cargo.Ativo = 1
+				ORDER BY 
+                    cargo.Nome";
+
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            return (await _conexao.QueryAsync<ListaParaSelectDto>(_comando)).ToList();
+    }
+
+    public async Task<List<ListaParaSelectDto>> UnidadesSelectList()
+    {
+        var _result = new List<SetorListDto>();
+
+        string _comando = $@"SELECT
+	                unidade.Codigo AS Chave,
+	                unidade.Nome AS Valor
+                FROM
+	                Unidade unidade
+                WHERE 
+                    unidade.Ativa = 1
+				ORDER BY 
+                    unidade.Nome";
+
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            return (await _conexao.QueryAsync<ListaParaSelectDto>(_comando)).ToList();
     }
 }

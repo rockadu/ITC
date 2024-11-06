@@ -1,5 +1,6 @@
 ﻿using App.Controllers.Abstract;
 using Domain.Models;
+using Domain.Models.Usuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Identificacao;
@@ -26,6 +27,12 @@ public class UsuarioController : BaseController
     public async Task<IActionResult> GerarTemplateExcelUsuarios()
     {
         return Ok();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Criar([FromBody] CriarUsuarioModel model)
+    {
+        return Ok(await _usuarioService.Criar(model));
     }
 
     //[HttpPost]

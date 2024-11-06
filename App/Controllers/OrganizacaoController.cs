@@ -32,4 +32,19 @@ public class OrganizacaoController : Controller
         var _resultado = await _organizacaoService.ListarUnidades(request);
         return View(_resultado);
     }
+
+    public async Task<IActionResult> UnidadesSelectList()
+    {
+        return Json(await _organizacaoService.UnidadesSelectList());
+    }
+
+    public async Task<IActionResult> SetoresPorUnidadeSelectList([FromQuery] int codigoUnidade)
+    {
+        return Json(await _organizacaoService.SetoresPorUnidadeSelectList(codigoUnidade));
+    }
+
+    public async Task<IActionResult> CargosSelectList()
+    {
+        return Json(await _organizacaoService.CargosSelectList());
+    }
 }

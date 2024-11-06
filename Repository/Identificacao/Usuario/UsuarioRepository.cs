@@ -70,7 +70,7 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
     {
         var _result = new BaseListResultDto<UsuarioListDto>(request.Pagina, request.ItensPorPagina);
 
-        string _comando = $@"SELECT
+        const string _comando = $@"SELECT
 	                usuario.Codigo AS Codigo,
                     usuario.Foto AS Foto,
 	                usuario.Nome AS Nome,
@@ -104,5 +104,14 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
         _result.Paginacao.Total = _result.Items != null && _result.Items.Count > 0 ? _result.Items.First().TotalItens : 0;
                 
         return _result;
+    }
+
+    public async Task<UsuarioEntity> Adicionar(UsuarioEntity entity)
+    {
+        const string _comando = @"INSERT INTO Usuario (Nome, Apelido, Email, Senha, Foto, CodigoCargo, CodigoSetor, CodigoUnidade, CodigoSuperiorImediato, Ativo)
+            OUTPUT inserted.* VALUES (@Nome, @Apelido, @Email, @Senha, @Foto, @CodigoCargo, @CodigoSetor, @CodigoUnidade, @CodigoSuperiorImediato, @Ativo)";
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            return (await _conexao.ExecuteScalarAsync<UsuarioEntity>(_comando, entity))!;
     }
 }

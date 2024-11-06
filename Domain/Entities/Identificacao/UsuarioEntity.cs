@@ -11,8 +11,9 @@ public class UsuarioEntity
     string? _Foto;
     public string? Foto { get => _Foto ?? "default.png" ; set => _Foto = value; }
     public bool Ativo { get; set; }
-    public int CodigoCargo { get; set; }
+    public int? CodigoCargo { get; set; }
     public int CodigoSetor { get; set; }
+    public int CodigoUnidade { get; set; }
     public int? CodigoSuperiorImediato { get; set; }
     public UsuarioEntity? SuperiorImediato { get; set; }
     public CargoEntity Cargo { get; set; } = new CargoEntity();

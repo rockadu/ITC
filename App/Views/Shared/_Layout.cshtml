@@ -6,7 +6,7 @@
 }
 
 <!DOCTYPE html>
-<html lang="pt-br" dir="ltr" data-nav-layout="vertical" data-theme-mode="dark" data-header-styles="dark" data-menu-styles="dark" style="--primary-rgb: 0, 235, 255;" loader="disable" data-vertical-style="overlay" data-bg-img="bgimg2" data-toggled="icon-overlay-close">
+<html lang="pt-br" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light" data-menu-styles="light" style="--primary-rgb: 0, 235, 255;" loader="disable" data-vertical-style="overlay" data-toggled="icon-overlay-close">
 
 <head>
 
@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/libs/flatpickr/flatpickr.min.css">
     <link rel="stylesheet" href="/libs/@@simonwep/pickr/themes/nano.min.css">
     <link rel="stylesheet" href="/libs/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="/libs/select2/select2.min.css">
 
 
 </head>
@@ -497,10 +498,6 @@
     </div>
     <!-- !CUSTOMIZADOR -->
 
-    <div id="loader">
-        <img src="/images/media/loader.svg" alt="">
-    </div>
-
     <div class="page">
         <!-- HEADER -->
         <header class="app-header">
@@ -509,10 +506,10 @@
                     <div class="header-element">
                         <div class="horizontal-logo">
                             <a href="index.html" class="header-logo">
-                                <img src="/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
-                                <img src="/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
-                                <img src="/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
-                                <img src="/images/brand-logos/toggle-white.png" alt="logo" class="toggle-white">
+                                <img src="" alt="logo" class="desktop-logo">
+                                <img src="" alt="logo" class="toggle-logo">
+                                <img src="" alt="logo" class="desktop-white">
+                                <img src="" alt="logo" class="toggle-white">
                             </a>
                         </div>
                     </div>
@@ -613,7 +610,7 @@
                     <!-- PERFIL -->
                     <div class="header-element headerProfile-dropdown">
                         <a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                            <img src="/images/faces/6.jpg" alt="img" width="37" height="37" class="rounded-circle">
+                            <img src="" alt="img" width="37" height="37" class="rounded-circle">
                         </a>
                         <ul class="main-header-dropdown dropdown-menu pt-0 header-profile-dropdown dropdown-menu-end main-profile-menu" aria-labelledby="mainHeaderProfile">
                             <li>
@@ -652,10 +649,10 @@
             <!-- LOGO -->
             <div class="main-sidebar-header">
                 <a href="index.html" class="header-logo">
-                    <img src="/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
-                    <img src="/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
-                    <img src="/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
-                    <img src="/images/brand-logos/toggle-white.png" alt="logo" class="toggle-white">
+                    <img src="" alt="logo" class="desktop-logo">
+                    <img src="" alt="logo" class="toggle-logo">
+                    <img src="" alt="logo" class="desktop-white">
+                    <img src="" alt="logo" class="toggle-white">
                 </a>
             </div>
             <!-- !LOGO -->
@@ -723,11 +720,14 @@
     <script src="/js/simplebar.js"></script>
     <script src="/libs/@@simonwep/pickr/pickr.es5.min.js"></script>
     <script src="/js/custom-switcher.min.js"></script>
+    <script src="/libs/select2/select2.min.js"></script>
     <script src="/js/custom.js"></script>
 
     <script>
         localStorage.setItem('primaryRGB', '49, 176, 176');
     </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
