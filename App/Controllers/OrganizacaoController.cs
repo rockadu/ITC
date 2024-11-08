@@ -47,4 +47,28 @@ public class OrganizacaoController : Controller
     {
         return Json(await _organizacaoService.CargosSelectList());
     }
+
+    public async Task<IActionResult> ExportarExcelUnidades()
+    {
+        var _arquivo = await _organizacaoService.ExportarExcelUnidades();
+
+        return File(_arquivo, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Unidades{DateTime.Now:yyyy-MM-dd HH:mm:ss}.xlsx");
+    }
+
+    public async Task<IActionResult> ImportarExcelUnidades(IFormFile excelFile)
+    {
+        if (excelFile == null || excelFile.Length == 0)
+        {
+            return BadRequest("Nenhum arquivo foi enviado.");
+        }
+
+        using (var stream = new MemoryStream())
+        {
+            await excelFile.CopyToAsync(stream);
+            stream.Position = 0;
+            await _organizacaoService.ImportarExcelUnidades(stream);
+        }
+
+        return Ok("Importação concluída com sucesso.");
+    }
 }

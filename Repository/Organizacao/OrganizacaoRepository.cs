@@ -4,7 +4,9 @@ using Domain.Dto;
 using Domain.Dto.Abstrato;
 using Domain.Dto.Identificacao;
 using Domain.Dto.Organizacao;
+using Domain.Entities.Organizacao;
 using Domain.Models;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 
@@ -19,7 +21,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         _appSettings = appSettings;
     }
 
-    public async Task<BaseListResultDto<CargoListDto>> ListarCargos(BaseListRequestDto request)
+    public async Task<BaseListResultDto<CargoListDto>> ListarCargosPaginadoAsync(BaseListRequestDto request)
     {
         var _result = new BaseListResultDto<CargoListDto>(request.Pagina, request.ItensPorPagina);
 
@@ -54,7 +56,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         return _result;
     }
 
-    public async Task<BaseListResultDto<SetorListDto>> ListarSetores(BaseListRequestDto request)
+    public async Task<BaseListResultDto<SetorListDto>> ListarSetoresPaginadoAsync(BaseListRequestDto request)
     {
         var _result = new BaseListResultDto<SetorListDto>(request.Pagina, request.ItensPorPagina);
 
@@ -92,7 +94,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         return _result;
     }
 
-    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidades(BaseListRequestDto request)
+    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidadesPaginadoAsync(BaseListRequestDto request)
     {
         var _result = new BaseListResultDto<UnidadeListDto>(request.Pagina, request.ItensPorPagina);
 
@@ -127,7 +129,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         return _result;
     }
 
-    public async Task<List<ListaParaSelectDto>> SetoresPorUnidadeSelectList(int codigoUnidade)
+    public async Task<List<ListaParaSelectDto>> SetoresPorUnidadeSelectListAsync(int codigoUnidade)
     {
         var _result = new List<SetorListDto>();
 
@@ -147,7 +149,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
             return (await _conexao.QueryAsync<ListaParaSelectDto>(_comando, new { codigoUnidade = codigoUnidade })).ToList();
     }
 
-    public async Task<List<ListaParaSelectDto>> CargosSelectList()
+    public async Task<List<ListaParaSelectDto>> CargosSelectListAsync()
     {
         var _result = new List<SetorListDto>();
 
@@ -166,7 +168,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
             return (await _conexao.QueryAsync<ListaParaSelectDto>(_comando)).ToList();
     }
 
-    public async Task<List<ListaParaSelectDto>> UnidadesSelectList()
+    public async Task<List<ListaParaSelectDto>> UnidadesSelectListAsync()
     {
         var _result = new List<SetorListDto>();
 
@@ -183,5 +185,29 @@ public class OrganizacaoRepository : IOrganizacaoRepository
 
         using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
             return (await _conexao.QueryAsync<ListaParaSelectDto>(_comando)).ToList();
+    }
+
+    public async Task<List<UnidadeEntity>> UnidadesAsync()
+    {
+        var query = "SELECT * FROM Unidade";
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            return (await _conexao.QueryAsync<UnidadeEntity>(query)).ToList();
+    }
+
+    public async Task AdicionarUnidadeAsync(UnidadeEntity unidade)
+    {
+        var query = "INSERT INTO Unidade (Chave, Nome, Ativa) VALUES (@Chave, @Nome, @Ativa)";
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            await _conexao.ExecuteAsync(query, unidade);
+    }
+
+    public async Task AtualizarUnidadeAsync(UnidadeEntity unidade)
+    {
+        var query = "UPDATE Unidade SET Chave = @Chave, Nome = @Nome, Ativa = @Ativa WHERE Codigo = @Codigo";
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            await _conexao.ExecuteAsync(query, unidade);
     }
 }

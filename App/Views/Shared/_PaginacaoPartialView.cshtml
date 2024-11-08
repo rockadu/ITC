@@ -1,15 +1,49 @@
 ﻿@model Domain.Dto.Abstrato.PaginacaoDto
 <div>
-    Pagina @(Model.Pagina) de @Model.Total
+    Pagina @(Model.Pagina) de @Model.TotalPaginas
 </div>
 
 <nav>
-    <ul class="pagination">
-        @for (int i = 1; i <= Model.Total; i++)
-        {
-            <li class="@(i == Model.Pagina ? "active" : "")">
-                <a asp-action="Index" asp-route-pageIndex="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
-            </li>
-        }
-    </ul>
+    <nav aria-label="Page navigation" class="pagination-style-1">
+        <ul class="pagination mb-0">
+            @if (Model.TotalPaginas <= 5)
+            {
+                for (var i = 1; i <= Model.TotalPaginas; i++)
+                {
+                    <li class="page-item @(i == Model.Pagina ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageIndex="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="page-item @(Model.Pagina == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pageIndex="1" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                        <i class="ri-arrow-left-s-line align-middle"></i>
+                    </a>
+                </li>
+
+
+                int inicio = 1;
+
+                if (Model.Pagina < 3) inicio = 1;
+                else if (Model.TotalPaginas - Model.Pagina < 3) inicio = Model.TotalPaginas - 4;
+                else inicio = Model.Pagina - 2;
+
+                for (int i = inicio; i <= inicio + 4; i++)
+                {
+                    <li class="page-item @(i == Model.Pagina ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageIndex="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(Model.Pagina == Model.TotalPaginas ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pageIndex="@Model.TotalPaginas" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-searchString="@ViewData["CurrentFilter"]">
+                        <i class="ri-arrow-right-s-line align-middle"></i>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
 </nav>
+

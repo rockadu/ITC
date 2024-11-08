@@ -13,4 +13,6 @@ public interface IOrganizacaoService
     public Task<List<ListaParaSelectDto>> SetoresPorUnidadeSelectList(int codigoUnidade);
     public Task<List<ListaParaSelectDto>> CargosSelectList();
     public Task<List<ListaParaSelectDto>> UnidadesSelectList();
+    public Task<byte[]> ExportarExcelUnidades();
+    Task ImportarExcelUnidades(Stream excelFile);
 }
