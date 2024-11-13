@@ -15,17 +15,6 @@
                 </ol>
             </nav>
         </div>
-        <div class="d-flex my-xl-auto right-content align-items-center">
-            <div class="pe-1 mb-xl-0">
-                <button type="button" class="btn btn-info btn-icon me-2 btn-b"><i class="mdi mdi-filter-variant"></i></button>
-            </div>
-            <div class="pe-1 mb-xl-0">
-                <button type="button" class="btn btn-danger btn-icon me-2"><i class="mdi mdi-star"></i></button>
-            </div>
-            <div class="pe-1 mb-xl-0">
-                <button type="button" class="btn btn-warning  btn-icon me-2"><i class="mdi mdi-refresh"></i></button>
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -39,11 +28,17 @@
                         </div>
                     </form>
                     <div>
+                        <button type="button" class="btn btn-danger d-none" id="btnDeletarMassivo" >
+                            Remover Selecionados
+                        </button>
                         <a asp-controller="Organizacao" asp-action="ExportarExcelUnidades" class="btn btn-primary">
                             Exportar Excel
                         </a>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">
                             Importar Unidades
+                        </button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#_AdicionarUnidadeModal">
+                            Adicionar
                         </button>
                     </div>
                 </div>
@@ -52,8 +47,8 @@
                         <table class="table text-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col">
-                                        <input id="selectAll" class="form-check-input" type="checkbox">
+                                    <th scope="col" width="16px">
+                                        <input id="selecionarTodos" class="form-check-input" type="checkbox">
                                     </th>
                                     <th scope="col">Código</th>
                                     <th scope="col">Chave</th>
@@ -64,7 +59,7 @@
                                 @foreach (var item in Model.Items)
                                 {
                                     <tr>
-                                        <th scope="row">
+                                        <th scope="row" width="16px">
                                             <input class="form-check-input check-unidade" type="checkbox" value="@item.Codigo">
                                         </th>
                                         <td>@item.Codigo</td>
@@ -83,15 +78,15 @@
     <partial name="_PaginacaopartialView" model="@Model.Paginacao" />
 
     <partial name="_ModalUploadExcelUnidadesPartialView" model="1" />
+    <partial name="_ModalAdicionarUnidadePartialView" model="1" />
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#importForm').submit(function (event) {
-                event.preventDefault(); // Impede o envio padrão do formulário
+            $('#importarExcel').submit(function (event) {
+                event.preventDefault();
 
-                // Cria um objeto FormData com os dados do formulário
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -121,17 +116,31 @@
                 });
             });
 
-            $('#selectAll').change(function () {
+            $('#selecionarTodos').change(function () {
                 var isChecked = $(this).is(':checked');
                 $('.check-unidade').prop('checked', isChecked);
+                toggleDeleteButton();
             });
 
+            $('.check-unidade').change(function () {
+                toggleDeleteButton();
+            });
+
+            function toggleDeleteButton() {
+                var anyChecked = $('.check-unidade:checked').length > 0;
+                if (anyChecked) {
+                    $('#btnDeletarMassivo').removeClass('d-none');
+                } else {
+                    $('#btnDeletarMassivo').addClass('d-none');
+                }
+            }
+
             // Enviar unidades selecionadas via AJAX
-            $('#sendSelected').click(function () {
+            $('#btnDeletarMassivo').click(function () {
                 // Obtém os valores dos checkboxes marcados
                 var selectedUnits = [];
                 $('.check-unidade:checked').each(function () {
-                    selectedUnits.push($(this).val());
+                    selectedUnits.push(Number($(this).val()));
                 });
 
                 // Verifica se há unidades selecionadas
@@ -146,15 +155,19 @@
 
                 // Envia os dados via AJAX
                 $.ajax({
-                    url: '/Organizacao/EnviarUnidadesSelecionadas', // Endpoint do backend
+                    url: '@Url.Action("InativarUnidades", "Organizacao")', // Endpoint do backend
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ unidades: selectedUnits }),
+                    data: JSON.stringify({ Unidades: selectedUnits }),
                     success: function (response) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Sucesso',
                             text: 'Unidades enviadas com sucesso!',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
                         });
                     },
                     error: function (jqXHR) {
@@ -167,5 +180,41 @@
                 });
             });
         });
+
+        function enviarFormulario() {
+            // Obtém os valores dos campos
+            var chave = $('#chave').val();
+            var nome = $('#nome').val();
+
+            // Faz uma requisição AJAX para enviar os dados
+            $.ajax({
+                url: '@Url.Action("CriarUnidade","Organizacao")', // URL do backend que receberá os dados
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    chave: chave,
+                    nome: nome
+                }),
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso',
+                        text: 'Unidade criada com sucesso!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Aqui você pode fechar o modal ou atualizar a lista de unidades, por exemplo
+                            window.location.reload(); // Atualiza a página após o sucesso
+                        }
+                    });
+                },
+                error: function (jqXHR) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Ocorreu um erro ao criar a unidade. Tente novamente mais tarde.',
+                    });
+                }
+            });
+        }
     </script>
 }

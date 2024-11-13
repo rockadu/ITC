@@ -110,6 +110,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
                     AND @filtro IS NULL OR (unidade.Codigo LIKE '%' + @filtro + '%'
 	                    OR unidade.Chave LIKE '%' + @filtro + '%'
 	                    OR unidade.Nome LIKE '%' + @filtro + '%')
+                    AND unidade.Ativa = 1
 				ORDER BY 
                     unidade.Nome
                 OFFSET @offset ROW
@@ -209,5 +210,13 @@ public class OrganizacaoRepository : IOrganizacaoRepository
 
         using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
             await _conexao.ExecuteAsync(query, unidade);
+    }
+
+    public async Task InativarUnidadesRangeAsync(string[] codigosUnidades)
+    {
+        var query = "UPDATE Unidade SET Ativa = 0 WHERE Codigo IN @Codigos";
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+            await _conexao.ExecuteAsync(query, new { Codigos = codigosUnidades });
     }
 }

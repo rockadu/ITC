@@ -15,4 +15,5 @@ public interface IOrganizacaoService
     public Task<List<ListaParaSelectDto>> UnidadesSelectList();
     public Task<byte[]> ExportarExcelUnidades();
     Task ImportarExcelUnidades(Stream excelFile);
+    Task InativarUnidadesRangeAsync(string[] codigosUnidades);
 }

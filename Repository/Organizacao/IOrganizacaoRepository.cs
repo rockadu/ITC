@@ -17,4 +17,5 @@ public interface IOrganizacaoRepository
     public Task<List<UnidadeEntity>> UnidadesAsync();
     public Task AdicionarUnidadeAsync(UnidadeEntity unidade);
     public Task AtualizarUnidadeAsync(UnidadeEntity unidade);
+    public Task InativarUnidadesRangeAsync(string[] codigosUnidades);
 }

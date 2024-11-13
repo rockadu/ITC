@@ -117,4 +117,9 @@ public class OrganizacaoService : IOrganizacaoService
             }
         }
     }
+
+    public async Task InativarUnidadesRangeAsync(string[] codigosUnidades)
+    {
+        await _repo.InativarUnidadesRangeAsync(codigosUnidades);
+    }
 }

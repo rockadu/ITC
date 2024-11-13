@@ -33,6 +33,11 @@ public class OrganizacaoController : Controller
         return View(_resultado);
     }
 
+    public async Task<IActionResult> AdicionarUnidade()
+    {
+        return Ok();
+    }
+
     public async Task<IActionResult> UnidadesSelectList()
     {
         return Json(await _organizacaoService.UnidadesSelectList());
@@ -70,5 +75,12 @@ public class OrganizacaoController : Controller
         }
 
         return Ok("Importação concluída com sucesso.");
+    }
+
+    public async Task<IActionResult> InativarUnidades([FromBody] string[] Unidades)
+    {
+        await _organizacaoService.InativarUnidadesRangeAsync(Unidades);
+
+        return Ok();
     }
 }

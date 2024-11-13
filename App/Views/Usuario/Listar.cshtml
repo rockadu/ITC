@@ -41,67 +41,45 @@
                             <button class="btn btn-primary" type="submit" value="Search"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
-                    <button class="btn btn-primary" onclick="$('#_AdicionarUsuarioModal').modal('show')">Adicionar</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#_AdicionarUsuarioModal">Adicionar</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-nowrap">
                             <thead>
                                 <tr>
-                                    <th scope="col"><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></th>
+                                    <th scope="col" width="16px">
+                                        <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                                    </th>
                                     <th scope="col">Nome</th>
+                                    <th scope="col">Unidade</th>
+                                    <th scope="col">Setor</th>
+                                    <th scope="col">Cargo</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">Gmail</th>
-                                    <th scope="col">Team</th>
-                                    <th scope="col">Work Progress</th>
-                                    <th scope="col">Revenue</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col" class="text-end">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.Items)
                                 {
                                     <tr>
-                                        <th scope="row"><input class="form-check-input" type="checkbox" id="checkboxNoLabel1" value="" aria-label="..."></th>
+                                        <th scope="row">
+                                            <input class="form-check-input" type="checkbox" id="checkboxNoLabel1">
+                                        </th>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <span class="avatar avatar-xs me-2 online avatar-rounded">
+                                                <span class="avatar avatar-xs me-2 avatar-rounded">
                                                     <img src="@item.Foto" alt="img">
                                                 </span>@item.Nome
                                             </div>
                                         </td>
+                                        <td>@item.Unidade</td>
+                                        <td>@item.Setor</td>
+                                        <td>@item.Cargo</td>
                                         <td>@item.Email</td>
-                                        <td><span class="badge bg-primary-transparent">Team Lead</span></td>
-                                        <td>mayorkrlly@gmail.com</td>
-                                        <td>
-                                            <div class="avatar-list-stacked">
-                                                <span class="avatar avatar-sm avatar-rounded">
-                                                    <img src="" alt="img">
-                                                </span>
-                                                <span class="avatar avatar-sm avatar-rounded">
-                                                    <img src="" alt="img">
-                                                </span>
-                                                <span class="avatar avatar-sm avatar-rounded">
-                                                    <img src="" alt="img">
-                                                </span>
-                                                <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded" href="javascript:void(0);">
-                                                    +4
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>$10,984.29</td>
-                                        <td>
-                                            <div class="hstack gap-2 fs-15">
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-success"><i class="ri-download-2-line"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-info"><i class="ri-edit-line"></i></a>
-                                            </div>
+                                        <td class="text-end">
+                                            <button class="btn btn-icon btn-sm btn-success"><i class="ri-download-2-line"></i></button>
+                                            <button class="btn btn-icon btn-sm btn-info"><i class="ri-edit-line"></i></button>
                                         </td>
                                     </tr>
                                 }
