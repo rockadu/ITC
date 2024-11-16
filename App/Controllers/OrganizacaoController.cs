@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.Organizacao;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Organizacao;
@@ -15,26 +16,27 @@ public class OrganizacaoController : Controller
         _organizacaoService = organizacaoService;
     }
 
-    public async Task<IActionResult> Setores(BaseListRequestDto request)
+    public async Task<IActionResult> Setores(BaseListRequestModel request)
     {
         var _resultado = await _organizacaoService.ListarSetores(request);
         return View(_resultado);
     }
 
-    public async Task<IActionResult> Cargos(BaseListRequestDto request)
+    public async Task<IActionResult> Cargos(BaseListRequestModel request)
     {
         var _resultado = await _organizacaoService.ListarCargos(request);
         return View(_resultado);
     }
 
-    public async Task<IActionResult> Unidades(BaseListRequestDto request)
+    public async Task<IActionResult> Unidades(BaseListRequestModel request)
     {
         var _resultado = await _organizacaoService.ListarUnidades(request);
         return View(_resultado);
     }
 
-    public async Task<IActionResult> AdicionarUnidade()
+    public async Task<IActionResult> AdicionarUnidade(AdicionarUnidadeModel request)
     {
+        await _organizacaoService.AdicionarUnidadeAsync(request)
         return Ok();
     }
 

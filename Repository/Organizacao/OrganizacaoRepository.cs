@@ -21,7 +21,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         _appSettings = appSettings;
     }
 
-    public async Task<BaseListResultDto<CargoListDto>> ListarCargosPaginadoAsync(BaseListRequestDto request)
+    public async Task<BaseListResultDto<CargoListDto>> ListarCargosPaginadoAsync(BaseListRequestModel request)
     {
         var _result = new BaseListResultDto<CargoListDto>(request.Pagina, request.ItensPorPagina);
 
@@ -56,7 +56,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         return _result;
     }
 
-    public async Task<BaseListResultDto<SetorListDto>> ListarSetoresPaginadoAsync(BaseListRequestDto request)
+    public async Task<BaseListResultDto<SetorListDto>> ListarSetoresPaginadoAsync(BaseListRequestModel request)
     {
         var _result = new BaseListResultDto<SetorListDto>(request.Pagina, request.ItensPorPagina);
 
@@ -94,7 +94,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         return _result;
     }
 
-    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidadesPaginadoAsync(BaseListRequestDto request)
+    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidadesPaginadoAsync(BaseListRequestModel request)
     {
         var _result = new BaseListResultDto<UnidadeListDto>(request.Pagina, request.ItensPorPagina);
 
@@ -196,12 +196,12 @@ public class OrganizacaoRepository : IOrganizacaoRepository
             return (await _conexao.QueryAsync<UnidadeEntity>(query)).ToList();
     }
 
-    public async Task AdicionarUnidadeAsync(UnidadeEntity unidade)
+    public async Task<UnidadeEntity> AdicionarUnidadeAsync(UnidadeEntity unidade)
     {
-        var query = "INSERT INTO Unidade (Chave, Nome, Ativa) VALUES (@Chave, @Nome, @Ativa)";
+        var query = "INSERT INTO Unidade (Chave, Nome, Ativa) OUTPUT inserted.* VALUES (@Chave, @Nome, @Ativa)";
 
         using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
-            await _conexao.ExecuteAsync(query, unidade);
+            return await _conexao.QueryFirstAsync<UnidadeEntity>(query, unidade);
     }
 
     public async Task AtualizarUnidadeAsync(UnidadeEntity unidade)

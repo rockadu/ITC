@@ -66,7 +66,7 @@ public class UsuarioRepository : BaseRepository, IUsuarioRepository
         };
     }
 
-    public async Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestDto request)
+    public async Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestModel request)
     {
         var _result = new BaseListResultDto<UsuarioListDto>(request.Pagina, request.ItensPorPagina);
 

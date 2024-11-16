@@ -18,7 +18,7 @@ public class UsuarioController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Listar(BaseListRequestDto request)
+    public async Task<IActionResult> Listar(BaseListRequestModel request)
     {
         return View(await _usuarioService.Listar(request));
     }

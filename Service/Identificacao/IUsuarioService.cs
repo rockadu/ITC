@@ -9,6 +9,6 @@ namespace Service.Identificacao;
 public interface IUsuarioService
 {
     Task<UsuarioEntity?> Logar(string email, string senha);
-    Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestDto request);
+    Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestModel request);
     Task<UsuarioEntity> Criar(CriarUsuarioModel model);
 }

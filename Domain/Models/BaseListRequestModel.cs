@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models;
 
-public class BaseListRequestDto
+public class BaseListRequestModel
 {
     public int Pagina { get; set; } = 1;
     public int ItensPorPagina { get; set; } = 10;

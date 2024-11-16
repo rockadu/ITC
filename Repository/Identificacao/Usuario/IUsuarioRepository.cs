@@ -8,6 +8,6 @@ namespace Repository.Identificacao.Usuario;
 public interface IUsuarioRepository
 {
     Task<UsuarioEntity?> BuscarPorEmailESenha(string email, string senhaMd5);
-    Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestDto request);
+    Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestModel request);
     Task<UsuarioEntity> Adicionar(UsuarioEntity entity);
 }

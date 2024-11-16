@@ -4,6 +4,7 @@ using Domain.Dto.Abstrato;
 using Domain.Dto.Organizacao;
 using Domain.Entities.Organizacao;
 using Domain.Models;
+using Domain.Models.Organizacao;
 using Repository.Organizacao;
 
 namespace Service.Organizacao;
@@ -17,17 +18,17 @@ public class OrganizacaoService : IOrganizacaoService
         _repo = setorRepository;
     }
 
-    public async Task<BaseListResultDto<CargoListDto>> ListarCargos(BaseListRequestDto request)
+    public async Task<BaseListResultDto<CargoListDto>> ListarCargos(BaseListRequestModel request)
     {
         return await _repo.ListarCargosPaginadoAsync(request);
     }
 
-    public async Task<BaseListResultDto<SetorListDto>> ListarSetores(BaseListRequestDto request)
+    public async Task<BaseListResultDto<SetorListDto>> ListarSetores(BaseListRequestModel request)
     {
         return await _repo.ListarSetoresPaginadoAsync(request);
     }
 
-    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidades(BaseListRequestDto request)
+    public async Task<BaseListResultDto<UnidadeListDto>> ListarUnidades(BaseListRequestModel request)
     {
         return await _repo.ListarUnidadesPaginadoAsync(request);
     }
@@ -121,5 +122,10 @@ public class OrganizacaoService : IOrganizacaoService
     public async Task InativarUnidadesRangeAsync(string[] codigosUnidades)
     {
         await _repo.InativarUnidadesRangeAsync(codigosUnidades);
+    }
+
+    public async Task<UnidadeEntity> AdicionarUnidadeAsync(AdicionarUnidadeModel unidade)
+    {
+        return await _repo.AdicionarUnidadeAsync(unidade);
     }
 }

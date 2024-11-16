@@ -26,7 +26,7 @@ public class UsuarioService : IUsuarioService
         return await _repository.BuscarPorEmailESenha(email, senhaMd5);
     }
 
-    public async Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestDto request) 
+    public async Task<BaseListResultDto<UsuarioListDto>> Listar(BaseListRequestModel request) 
     {
         return await _repository.Listar(request);
     }
