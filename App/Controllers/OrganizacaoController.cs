@@ -36,7 +36,7 @@ public class OrganizacaoController : Controller
 
     public async Task<IActionResult> AdicionarUnidade(AdicionarUnidadeModel request)
     {
-        await _organizacaoService.AdicionarUnidadeAsync(request)
+        await _organizacaoService.AdicionarUnidadeAsync(request);
         return Ok();
     }
 

@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using CrossCutting.Exceptions;
 using Domain.Dto;
 using Domain.Dto.Abstrato;
 using Domain.Dto.Organizacao;
@@ -6,6 +7,7 @@ using Domain.Entities.Organizacao;
 using Domain.Models;
 using Domain.Models.Organizacao;
 using Repository.Organizacao;
+using System.Linq.Expressions;
 
 namespace Service.Organizacao;
 
@@ -126,6 +128,14 @@ public class OrganizacaoService : IOrganizacaoService
 
     public async Task<UnidadeEntity> AdicionarUnidadeAsync(AdicionarUnidadeModel unidade)
     {
-        return await _repo.AdicionarUnidadeAsync(unidade);
+        if (await _repo.BuscarUnidadeExistenteAsync(unidade.Chave, unidade.Nome))
+            throw new JaExisteException();
+
+        var _entidade = new UnidadeEntity();
+        _entidade.Nome = unidade.Nome;
+        _entidade.Chave = unidade.Chave;
+        _entidade.Ativa = true;
+
+        return await _repo.AdicionarUnidadeAsync(_entidade);
     }
 }

@@ -219,4 +219,16 @@ public class OrganizacaoRepository : IOrganizacaoRepository
         using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
             await _conexao.ExecuteAsync(query, new { Codigos = codigosUnidades });
     }
+
+    public async Task<bool> BuscarUnidadeExistenteAsync(string chave, string nome)
+    {
+        var query = "SELECT * FROM Unidade WHERE (Chave = @chave OR Nome = @nome) AND Ativo = 1";
+
+        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
+        {
+            var _resultado = (await _conexao.QueryAsync<UnidadeEntity>(query, new { chave = chave, nome = nome })).ToList();
+
+            return _resultado.Any();
+        }
+    }
 }
