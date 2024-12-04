@@ -21,9 +21,9 @@
         <div class="col-xl-12">
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
-                    <form asp-action="Index" method="get">
+                    <form asp-action="Unidades" method="get">
                         <div class="input-group mb-3 col-4">
-                            <input type="text" class="form-control" placeholder="Buscar...">
+                            <input type="text" class="form-control" name="Filtro" placeholder="Buscar...">
                             <button class="btn btn-primary" type="submit" value="Search"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
@@ -53,6 +53,7 @@
                                     <th scope="col">Código</th>
                                     <th scope="col">Chave</th>
                                     <th scope="col">Nome</th>
+                                    <th scope="col">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,6 +66,7 @@
                                         <td>@item.Codigo</td>
                                         <td>@item.Chave</td>
                                         <td>@item.Nome</td>
+                                        <td><button class="btn btn-icon btn-sm btn-danger delete"><i class="ri-delete-bin-line"></i></button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -135,6 +137,14 @@
                 }
             }
 
+            $(document).on('click', '.delete', function () {
+                // Obtém o valor do checkbox associado à linha do botão clicado
+                var unidade = Number($(this).closest('tr').find('.check-unidade').val());
+
+                // Chama a função de deleção com um array contendo apenas a unidade
+                deletarUnidades([unidade]);
+            });
+
             // Enviar unidades selecionadas via AJAX
             $('#btnDeletarMassivo').click(function () {
                 // Obtém os valores dos checkboxes marcados
@@ -143,43 +153,48 @@
                     selectedUnits.push(Number($(this).val()));
                 });
 
-                // Verifica se há unidades selecionadas
-                if (selectedUnits.length === 0) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Atenção',
-                        text: 'Nenhuma unidade foi selecionada!',
-                    });
-                    return;
-                }
-
-                // Envia os dados via AJAX
-                $.ajax({
-                    url: '@Url.Action("InativarUnidades", "Organizacao")', // Endpoint do backend
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ Unidades: selectedUnits }),
-                    success: function (response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Sucesso',
-                            text: 'Unidades enviadas com sucesso!',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        });
-                    },
-                    error: function (jqXHR) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erro',
-                            text: 'Ocorreu um erro ao enviar as unidades. Tente novamente mais tarde.',
-                        });
-                    }
-                });
+                // Chama a função de deleção com os itens selecionados
+                deletarUnidades(selectedUnits);
             });
         });
+
+        function deletarUnidades(selectedUnits) {
+            // Verifica se há unidades selecionadas
+            if (selectedUnits.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção',
+                    text: 'Nenhuma unidade foi selecionada!',
+                });
+                return;
+            }
+
+            // Envia os dados via AJAX
+            $.ajax({
+                url: '@Url.Action("InativarUnidades", "Organizacao")', // Endpoint do backend
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(selectedUnits),
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso',
+                        text: 'Unidades enviadas com sucesso!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // Atualiza a página após sucesso
+                        }
+                    });
+                },
+                error: function (jqXHR) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Ocorreu um erro ao enviar as unidades. Tente novamente mais tarde.',
+                    });
+                }
+            });
+        }
 
         function enviarFormulario() {
             // Obtém os valores dos campos
@@ -188,7 +203,7 @@
 
             // Faz uma requisição AJAX para enviar os dados
             $.ajax({
-                url: '@Url.Action("CriarUnidade","Organizacao")', // URL do backend que receberá os dados
+                url: '@Url.Action("AdicionarUnidade", "Organizacao")', // URL do backend que receberá os dados
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -208,11 +223,19 @@
                     });
                 },
                 error: function (jqXHR) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro',
-                        text: 'Ocorreu um erro ao criar a unidade. Tente novamente mais tarde.',
-                    });
+                    if (jqXHR.status === 409) { // Verifica se o status é 409 Conflict
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Conflito',
+                            text: 'A unidade já existe. Verifique os dados e tente novamente.',
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro',
+                            text: 'Ocorreu um erro ao criar a unidade. Tente novamente mais tarde.',
+                        });
+                    }
                 }
             });
         }

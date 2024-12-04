@@ -2,12 +2,9 @@
 using Dapper;
 using Domain.Dto;
 using Domain.Dto.Abstrato;
-using Domain.Dto.Identificacao;
 using Domain.Dto.Organizacao;
 using Domain.Entities.Organizacao;
 using Domain.Models;
-using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Repository.Organizacao;
@@ -107,9 +104,9 @@ public class OrganizacaoRepository : IOrganizacaoRepository
                 FROM
 	                Unidade unidade
                 WHERE 1 = 1
-                    AND @filtro IS NULL OR (unidade.Codigo LIKE '%' + @filtro + '%'
+                    AND (@filtro IS NULL OR (unidade.Codigo LIKE '%' + @filtro + '%'
 	                    OR unidade.Chave LIKE '%' + @filtro + '%'
-	                    OR unidade.Nome LIKE '%' + @filtro + '%')
+	                    OR unidade.Nome LIKE '%' + @filtro + '%'))
                     AND unidade.Ativa = 1
 				ORDER BY 
                     unidade.Nome
@@ -212,7 +209,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
             await _conexao.ExecuteAsync(query, unidade);
     }
 
-    public async Task InativarUnidadesRangeAsync(string[] codigosUnidades)
+    public async Task InativarUnidadesRangeAsync(int[] codigosUnidades)
     {
         var query = "UPDATE Unidade SET Ativa = 0 WHERE Codigo IN @Codigos";
 
@@ -222,7 +219,7 @@ public class OrganizacaoRepository : IOrganizacaoRepository
 
     public async Task<bool> BuscarUnidadeExistenteAsync(string chave, string nome)
     {
-        var query = "SELECT * FROM Unidade WHERE (Chave = @chave OR Nome = @nome) AND Ativo = 1";
+        var query = "SELECT * FROM Unidade WHERE (Chave = @chave OR Nome = @nome) AND Ativa = 1";
 
         using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
         {

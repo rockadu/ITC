@@ -168,6 +168,7 @@
 
         function carregarSetores(codigoUnidade) {
             $.ajax({
+
                 url: `@(Url.Action("SetoresPorUnidadeSelectList","Organizacao"))?codigoUnidade=${codigoUnidade}`,
                 type: 'GET',
                 success: function (data) {

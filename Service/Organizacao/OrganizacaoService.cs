@@ -7,7 +7,6 @@ using Domain.Entities.Organizacao;
 using Domain.Models;
 using Domain.Models.Organizacao;
 using Repository.Organizacao;
-using System.Linq.Expressions;
 
 namespace Service.Organizacao;
 
@@ -121,7 +120,7 @@ public class OrganizacaoService : IOrganizacaoService
         }
     }
 
-    public async Task InativarUnidadesRangeAsync(string[] codigosUnidades)
+    public async Task InativarUnidadesRangeAsync(int[] codigosUnidades)
     {
         await _repo.InativarUnidadesRangeAsync(codigosUnidades);
     }

@@ -34,7 +34,7 @@ public class OrganizacaoController : Controller
         return View(_resultado);
     }
 
-    public async Task<IActionResult> AdicionarUnidade(AdicionarUnidadeModel request)
+    public async Task<IActionResult> AdicionarUnidade([FromBody] AdicionarUnidadeModel request)
     {
         await _organizacaoService.AdicionarUnidadeAsync(request);
         return Ok();
@@ -79,7 +79,8 @@ public class OrganizacaoController : Controller
         return Ok("Importação concluída com sucesso.");
     }
 
-    public async Task<IActionResult> InativarUnidades([FromBody] string[] Unidades)
+    [HttpPost]
+    public async Task<IActionResult> InativarUnidades([FromBody] int[] Unidades)
     {
         await _organizacaoService.InativarUnidadesRangeAsync(Unidades);
 

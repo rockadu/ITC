@@ -3,6 +3,7 @@ using Service;
 using Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using CrossCutting;
+using App.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
+app.UseMiddleware<InterceptadorDeExcecao>();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
