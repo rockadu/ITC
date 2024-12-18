@@ -62,6 +62,20 @@ public class OrganizacaoController : Controller
         return File(_arquivo, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Unidades{DateTime.Now:yyyy-MM-dd HH:mm:ss}.xlsx");
     }
 
+    public async Task<IActionResult> ExportarExcelSetores()
+    {
+        var _arquivo = await _organizacaoService.ExportarExcelUnidades();
+
+        return File(_arquivo, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Setores{DateTime.Now:yyyy-MM-dd HH:mm:ss}.xlsx");
+    }
+
+    public async Task<IActionResult> ExportarExcelCargos()
+    {
+        var _arquivo = await _organizacaoService.ExportarExcelUnidades();
+
+        return File(_arquivo, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Cargos{DateTime.Now:yyyy-MM-dd HH:mm:ss}.xlsx");
+    }
+
     public async Task<IActionResult> ImportarExcelUnidades(IFormFile excelFile)
     {
         if (excelFile == null || excelFile.Length == 0)

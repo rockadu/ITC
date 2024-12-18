@@ -5,15 +5,16 @@ using Domain.Dto.Abstrato;
 using Domain.Dto.Organizacao;
 using Domain.Entities.Organizacao;
 using Domain.Models;
+using Repository.Base;
 using System.Data.SqlClient;
 
 namespace Repository.Organizacao;
 
-public class OrganizacaoRepository : IOrganizacaoRepository
+public class OrganizacaoRepository : BaseRepository, IOrganizacaoRepository
 {
     private readonly AppSettings _appSettings;
 
-    public OrganizacaoRepository(AppSettings appSettings)
+    public OrganizacaoRepository(AppSettings appSettings) : base(appSettings)
     {
         _appSettings = appSettings;
     }
@@ -187,10 +188,17 @@ public class OrganizacaoRepository : IOrganizacaoRepository
 
     public async Task<List<UnidadeEntity>> UnidadesAsync()
     {
-        var query = "SELECT * FROM Unidade";
+        return await ListarAsync<UnidadeEntity>();
+    }
 
-        using (SqlConnection _conexao = new SqlConnection(_appSettings.DataBase.StringConnection()))
-            return (await _conexao.QueryAsync<UnidadeEntity>(query)).ToList();
+    public async Task<List<SetorEntity>> SetoresAsync()
+    {
+        return await ListarAsync<SetorEntity>();
+    }
+
+    public async Task<List<CargoEntity>> CargosAsync()
+    {
+        return await ListarAsync<CargoEntity>();
     }
 
     public async Task<UnidadeEntity> AdicionarUnidadeAsync(UnidadeEntity unidade)

@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using CrossCutting.Exceptions;
+using CrossCutting.Utils.Excel;
 using Domain.Dto;
 using Domain.Dto.Abstrato;
 using Domain.Dto.Organizacao;
@@ -13,10 +14,12 @@ namespace Service.Organizacao;
 public class OrganizacaoService : IOrganizacaoService
 {
     private readonly IOrganizacaoRepository _repo;
+    private readonly IExcelUtils _excelUtils;
 
-    public OrganizacaoService(IOrganizacaoRepository setorRepository)
+    public OrganizacaoService(IOrganizacaoRepository setorRepository, IExcelUtils excelUtils)
     {
         _repo = setorRepository;
+        _excelUtils = excelUtils;
     }
 
     public async Task<BaseListResultDto<CargoListDto>> ListarCargos(BaseListRequestModel request)
@@ -53,31 +56,21 @@ public class OrganizacaoService : IOrganizacaoService
     {
         var _unidades = await _repo.UnidadesAsync();
 
-        using (var workbook = new XLWorkbook())
-        {
-            var worksheet = workbook.Worksheets.Add("Unidades");
+        return _excelUtils.GerarExcel(_unidades);
+    }
 
-            // Cabeçalho
-            worksheet.Cell(1, 1).Value = "Código";
-            worksheet.Cell(1, 2).Value = "Chave";
-            worksheet.Cell(1, 3).Value = "Nome";
-            worksheet.Cell(1, 4).Value = "Ativa";
+    public async Task<byte[]> ExportarExcelSetores()
+    {
+        var _setores = await _repo.SetoresAsync();
 
-            // Dados
-            for (int i = 0; i < _unidades.Count; i++)
-            {
-                worksheet.Cell(i + 2, 1).Value = _unidades[i].Codigo;
-                worksheet.Cell(i + 2, 2).Value = _unidades[i].Chave;
-                worksheet.Cell(i + 2, 3).Value = _unidades[i].Nome;
-                worksheet.Cell(i + 2, 4).Value = _unidades[i].Ativa ? "Sim" : "Não";
-            }
+        return _excelUtils.GerarExcel(_setores);
+    }
 
-            using (var stream = new MemoryStream())
-            {
-                workbook.SaveAs(stream);
-                return stream.ToArray();
-            }
-        }
+    public async Task<byte[]> ExportarExcelCargos()
+    {
+        var _cargos = await _repo.CargosAsync();
+
+        return _excelUtils.GerarExcel(_cargos);
     }
 
     public async Task ImportarExcelUnidades(Stream excelFile)

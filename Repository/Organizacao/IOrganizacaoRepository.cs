@@ -15,6 +15,8 @@ public interface IOrganizacaoRepository
     public Task<List<ListaParaSelectDto>> CargosSelectListAsync();
     public Task<List<ListaParaSelectDto>> UnidadesSelectListAsync();
     public Task<List<UnidadeEntity>> UnidadesAsync();
+    public Task<List<SetorEntity>> SetoresAsync();
+    public Task<List<CargoEntity>> CargosAsync();
     public Task<UnidadeEntity> AdicionarUnidadeAsync(UnidadeEntity unidade);
     public Task AtualizarUnidadeAsync(UnidadeEntity unidade);
     public Task InativarUnidadesRangeAsync(int[] codigosUnidades);
